@@ -9,6 +9,7 @@ const replaceContainer = function (Component, options) {
   return component;
 };
 
+//Replacing existing main with our content
 const app = replaceContainer(App, {
   target: document.querySelector("main"),
 });
