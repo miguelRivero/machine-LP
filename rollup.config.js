@@ -4,6 +4,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import preprocess from "svelte-preprocess";
+import babel from "rollup-plugin-babel";
 
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
@@ -33,6 +34,25 @@ function serve() {
   };
 }
 
+let svelteConfig;
+if (!bundle) {
+  svelteConfig = {
+    // enable run-time checks when not in production
+    dev: !production,
+    // we'll extract any component CSS out into
+    // a separate file - better for performance
+    css: (css) => {
+      if (!bundle) css.write("bundle.css");
+    },
+    preprocess: preprocess(),
+  };
+} else {
+  svelteConfig = {
+    dev: !production,
+    preprocess: preprocess(),
+  };
+}
+
 export default {
   input: "src/main.js",
   output: {
@@ -42,17 +62,10 @@ export default {
     file: "public/build/bundle.js",
   },
   plugins: [
-    svelte({
-      // enable run-time checks when not in production
-      dev: !production,
-      // we'll extract any component CSS out into
-      // a separate file - better for performance
-      css: (css) => {
-        if (!bundle) css.write("bundle.css");
-      },
-      preprocess: preprocess(),
+    svelte(svelteConfig),
+    babel({
+      extensions: [".js", ".mjs", ".html", ".svelte"],
     }),
-
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
     // some cases you'll need additional configuration -

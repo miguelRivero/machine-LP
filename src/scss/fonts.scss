@@ -1,20 +1,23 @@
+@import "variables";
+
 @font-face {
   font-family: "NespressoLucas-light";
-  src: url("../fonts/NespressoLucas-Light.otf") format("opentype");
-
-  font-weight: 300;
+  //src: url("../fonts/NespressoLucas-Light.otf") format("opentype");
+  src: url(#{$fontNespressoUrl}/NespressoLucas-Light.woff) format("woff");
+  font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "NespressoLucas-normal";
-  src: url("../fonts/NespressoLucas-Med.otf") format("opentype");
-
+  //src: url("../fonts/NespressoLucas-Med.otf") format("opentype");
+  src: url(#{$fontNespressoUrl}/NespressoLucas-Medium.woff) format("woff");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
   font-family: "NespressoLucas-bold";
-  src: url("../fonts/NespressoLucas-Bold.otf") format("opentype");
+  //src: url("../fonts/NespressoLucas-Bold.otf") format("opentype");
+  src: url(#{$fontNespressoUrl}/NespressoLucas-Bold.woff) format("woff");
   font-weight: normal;
   font-style: normal;
 }

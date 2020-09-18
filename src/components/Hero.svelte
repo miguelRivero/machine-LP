@@ -1,10 +1,15 @@
 <script>
-  // your script goes here
+  import { imagesGitStorage } from "../store.js";
+  console.log(imagesGitStorage);
 </script>
 
 <style type="text/scss">
   @import "../scss/variables";
-
+  // overrriding styles
+  #hero {
+    height: unset;
+  }
+  // custom styles
   .subscriptionHero {
     padding: 2.25rem 2.5rem;
     background-image: url(#{$assetsUrl}backgrounds/earth_L.jpg);
@@ -15,7 +20,7 @@
     color: white;
     h2 {
       color: white;
-      font-family: "NespressoLucas-light", Arial, Helvetica, sans-serif;
+      font-family: $lucasLight;
       font-weight: normal;
       font-size: 1.125rem;
       letter-spacing: 1.5px;
@@ -25,7 +30,7 @@
     }
     button {
       font-size: 0.875rem;
-      font-family: "NespressoLucas-bold", Arial, Helvetica, sans-serif;
+      font-family: $lucasBold;
       letter-spacing: 1px;
       line-height: 1.3125rem;
       text-align: center;
@@ -47,7 +52,7 @@
     display: table;
     list-style: none;
     text-align: left;
-    font-family: "NespressoLucas-light", Arial, Helvetica, sans-serif;
+    font-family: $lucasLight;
     font-size: 1.125rem;
     font-weight: normal;
     letter-spacing: 1px;
@@ -63,12 +68,12 @@
   <img
     class="g_visual g_imgSrc g_imgSrc_loaded"
     aria-hidden="true"
-    src="/images/logo_subscription.svg"
+    src="{imagesGitStorage}/logo_subscription.svg"
     alt="Subscription by Nespresso" />
   <h2>Never run out of coffee</h2>
   <img
     class="subscriptionHero__machine"
-    src="/images/machine.png"
+    src="{imagesGitStorage}/machine.png"
     alt="Coffee Machine Set" />
   <ul class="subscriptionHero__points">
     <li>Your machine for <strong>$1</strong></li>

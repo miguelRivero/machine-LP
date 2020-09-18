@@ -1,5 +1,7 @@
 import App from "./App.svelte";
 
+const tampermonkey = true;
+
 const replaceContainer = function (Component, options) {
   const frag = document.createDocumentFragment();
   const component = new Component(Object.assign({}, options, { target: frag }));
@@ -10,9 +12,13 @@ const replaceContainer = function (Component, options) {
 };
 
 //Replacing existing main with our content
-const app = replaceContainer(App, {
-  target: document.querySelector("main"),
-});
+const app = tampermonkey
+  ? replaceContainer(App, {
+      target: document.querySelector("main"),
+    })
+  : new App({
+      target: document.body,
+    });
 
 // const app = new App({
 // 	target: document.body,

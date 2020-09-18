@@ -1,5 +1,6 @@
 <script>
   import Hero from "./components/Hero.svelte";
+  import IconList from "./components/IconList.svelte";
 </script>
 
 <style type="text/scss">
@@ -21,4 +22,5 @@
 
 <main>
   <Hero />
+  <IconList />
 </main>
