@@ -5,7 +5,8 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import preprocess from "svelte-preprocess";
 import babel from "rollup-plugin-babel";
-
+import postcss from "rollup-plugin-postcss";
+var path = require("path");
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
 
@@ -76,7 +77,19 @@ export default {
       dedupe: ["svelte"],
     }),
     commonjs(),
-
+    postcss({
+      modules: true,
+      extensions: [".sass", ".scss"],
+      namedExports: true,
+      use: [
+        [
+          "sass",
+          {
+            includePaths: [path.resolve("node_modules")],
+          },
+        ],
+      ],
+    }),
     // In dev mode, call `npm run start` once
     // the bundle has been generated
     !production && serve(),
