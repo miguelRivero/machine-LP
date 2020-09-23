@@ -6,24 +6,25 @@
   onMount(() => {
     var accordion = new Handorgel(hand_accordion);
     accordion.on("fold:open", (fold) => {
-      console.log(fold);
+      console.log(fold.content);
       // ...
     });
   });
 </script>
 
-<style type="text/scss">
-  @import "handorgel/src/scss/style";
+<style type="scss" global>
   @import "../scss/variables";
+  $handorgel__content--open-transition-height-time: 0.3s;
+  $handorgel__content--open-transition-opacity-time: 0.3s;
+  $handorgel__content-transition-height-time: 0.5s;
+  $handorgel__content-transition-opacity-time: 0.3s;
+  @import "../../node_modules/handorgel/src/scss/style";
 
   .subscriptionFaq__content {
     text-align: left;
     background: url("./images/bg_faq.jpg") top center no-repeat;
     background-size: cover;
-    padding-top: 354px;
-
-    :global(li) {
-    }
+    padding: 354px 16px 32px;
 
     h2 {
       color: #ffffff;
@@ -33,9 +34,10 @@
       letter-spacing: 0.375rem;
       line-height: 2.5rem;
     }
-    :global(.handorgel) {
+    .handorgel {
+      border: none;
     }
-    :global(.handorgel__header) {
+    .handorgel__header {
       border: none;
       color: #ffffff;
       font-family: $lucasBold;
@@ -44,6 +46,7 @@
       letter-spacing: 1px;
       line-height: 24px;
       position: relative;
+
       &:before {
         content: "";
         position: absolute;
@@ -51,9 +54,10 @@
         border-radius: 100%;
         width: 22px;
         height: 22px;
-        top: calc(50% - 4px);
-        left: -24px;
-        transform: translateY(-50%);
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%) scale(-1);
+        transition: 0.25s ease;
       }
       &:after {
         content: "";
@@ -62,19 +66,37 @@
         border-bottom: 2px solid white;
         width: 6px;
         height: 6px;
-        top: calc(50% - 5px);
-        left: -16px;
-        transform: translateY(-50%) rotate(45deg);
+        top: calc(50% - 1px);
+        left: 8px;
+        transform: translateY(-50%) rotate(225deg) scale(-1);
+        transition: 0.25s ease;
+      }
+      &.handorgel__header--opened {
+        &:before {
+          transform: translateY(-50%) scale(1);
+        }
+        &:after {
+          top: calc(50% + 1px);
+          transform: translateY(-50%) rotate(225deg) scale(1);
+        }
       }
     }
-    :global(.handorgel__header__button) {
+    .handorgel__header__button {
       background-color: unset;
       border-top: none;
+      padding: 16px 16px 16px 40px;
     }
-    :global(.handorgel__content) {
+    .handorgel__content {
       color: white;
       border-top: none;
       background-color: unset;
+      font-family: $lucasLight;
+      font-size: 1rem;
+      letter-spacing: 1px;
+      line-height: 1.5rem;
+    }
+    .handorgel__content__inner {
+      padding: 0 16px 8px 40px;
     }
   }
 </style>
@@ -87,7 +109,7 @@
       <button class="handorgel__header__button">What’s the Nespresso credit ?
         How is it applied ?</button>
     </h3>
-    <div class="handorgel__content" data-open>
+    <div class="handorgel__content">
       <div class="handorgel__content__inner">
         There is no catch! You pay £1 upfront for the machine and you sign up
         for a 24 month commitment with a monthly fee. The monthly fee becomes
