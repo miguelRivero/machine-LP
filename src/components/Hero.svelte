@@ -1,6 +1,5 @@
 <script>
   import { imagesGitStorage } from "../store.js";
-  console.log(imagesGitStorage);
 </script>
 
 <style type="text/scss">

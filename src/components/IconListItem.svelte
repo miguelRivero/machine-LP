@@ -8,6 +8,7 @@
     text-align: left;
     letter-spacing: 1px;
     line-height: 1.5rem;
+    margin: 0;
   }
   li {
     position: relative;

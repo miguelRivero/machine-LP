@@ -24,7 +24,7 @@
 
 <style type="text/scss">
   @import "../scss/variables";
-  .subscriptionHero__points {
+  .subscriptionPoints {
     padding: 30px 20px;
     background-color: white;
   }
@@ -35,13 +35,17 @@
     letter-spacing: 0.375rem;
     line-height: 2.5rem;
   }
+
+  ul {
+    list-style: none;
+  }
 </style>
 
-<div class="subscriptionHero__points">
+<section id="points" class="subscriptionPoints">
   <h3>HOW DOES IT WORK?</h3>
   <ul>
     {#each copyTexts as copy}
       <IconListItem title={copy.title} text={copy.text} icon={copy.icon} />
     {/each}
   </ul>
-</div>
+</section>

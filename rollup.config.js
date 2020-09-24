@@ -1,11 +1,15 @@
 import svelte from "rollup-plugin-svelte";
+//import polyfill from "rollup-plugin-polyfill";
+import babel from "rollup-plugin-babel";
 import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import preprocess from "svelte-preprocess";
-import babel from "rollup-plugin-babel";
 import postcss from "rollup-plugin-postcss";
+//import json from "@rollup/plugin-json";
+//import jscc from "rollup-plugin-jscc";
+
 var path = require("path");
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
@@ -64,19 +68,41 @@ export default {
   },
   plugins: [
     svelte(svelteConfig),
+    // jscc({
+    //   values: { _LEGACY: 1 },
+    // }),
+    resolve(),
+    commonjs(),
+    //json(),
     babel({
       extensions: [".js", ".mjs", ".html", ".svelte"],
+      exclude: [
+        "node_modules/@babel/**",
+      ] /**/ /*use in conjunction with preset-env.corejs ,'node_modules/core-js/**' */,
+      /*runtimeHelpers: true,*/
+      presets: [
+        [
+          "@babel/preset-env",
+          {
+            targets: "ie 11",
+            loose: true,
+            useBuiltIns: "entry",
+            corejs: 3,
+            /*include: [
+              "es.object.create",
+              "es.array.fill",
+            ],*/
+            /*exclude: [
+              "transform-async-to-generator",
+            ],*/
+          },
+        ],
+      ],
+      plugins: [
+        /*'@babel/plugin-transform-runtime'*/
+        "transform-async-to-promises",
+      ],
     }),
-    // If you have external dependencies installed from
-    // npm, you'll most likely need these plugins. In
-    // some cases you'll need additional configuration -
-    // consult the documentation for details:
-    // https://github.com/rollup/plugins/tree/master/packages/commonjs
-    resolve({
-      browser: true,
-      dedupe: ["svelte"],
-    }),
-    commonjs(),
     postcss({
       modules: true,
       extensions: [".sass", ".scss"],

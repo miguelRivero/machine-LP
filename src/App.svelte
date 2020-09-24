@@ -1,8 +1,8 @@
 <script>
-  import Faq from "./components/Faq.svelte";
   import Hero from "./components/Hero.svelte";
-  import IconList from "./components/IconList.svelte";
-  import "../node_modules/handorgel/src/scss/style.scss";
+  import Points from "./components/Points.svelte";
+  import Faq from "./components/Faq.svelte";
+  import Offer from "./components/Offer.svelte";
 </script>
 
 <style type="text/scss">
@@ -24,6 +24,7 @@
 
 <main>
   <Hero />
-  <!-- <IconList /> -->
+  <Points />
+  <Offer />
   <Faq />
 </main>
