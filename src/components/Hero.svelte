@@ -1,5 +1,9 @@
 <script>
   import { imagesGitStorage } from "../store.js";
+  import Button from "./Button.svelte";
+  const clickHandler = (e) => {
+    console.log("clicked");
+  };
 </script>
 
 <style type="text/scss">
@@ -26,21 +30,6 @@
       line-height: 2rem;
       text-align: center;
       margin: 0.875rem auto 1.375rem;
-    }
-    button {
-      font-size: 0.875rem;
-      font-family: $lucasBold;
-      letter-spacing: 1px;
-      line-height: 1.3125rem;
-      text-align: center;
-      background-color: #3d8705;
-      border-radius: 4px;
-      color: white;
-      box-shadow: 0 0 0 0 rgba(0, 0, 0, 0);
-      border: none;
-      padding: 0.625rem;
-      max-width: 100%;
-      min-width: 280px;
     }
   }
   .subscriptionHero__machine {
@@ -81,5 +70,10 @@
     </li>
     <li><strong>Unlimited</strong> free deliveries</li>
   </ul>
-  <button>SEE ALL MACHINES</button>
+  <Button
+    text="SEE ALL MACHINES"
+    hiddenText=""
+    iconPlus={false}
+    iconBasket={false}
+    on:buttonClick={clickHandler} />
 </section>

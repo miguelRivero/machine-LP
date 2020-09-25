@@ -1,0 +1,64 @@
+$breakpoints: (
+  "phone": 400px,
+  "phone-wide": 480px,
+  "phablet": 560px,
+  "tablet-small": 640px,
+  "tablet": 768px,
+  "tablet-wide": 1024px,
+  "desktop": 1248px,
+  "desktop-wide": 1440px,
+);
+@mixin mq($width, $type: min) {
+  @if map_has_key($breakpoints, $width) {
+    $width: map_get($breakpoints, $width);
+    @if $type == max {
+      $width: $width - 1px;
+    }
+    @media only screen and (#{$type}-width: $width) {
+      @content;
+    }
+  }
+}
+// EXAMPLE
+// @include mq('tablet-wide') {
+//     padding-top: 4rem;
+//     font-size: 2.4rem;
+// }
+@mixin pseudo($display: block, $pos: absolute, $content: "") {
+  content: $content;
+  display: $display;
+  position: $pos;
+}
+// EXAMPLE
+// div::after {
+//     @include pseudo;
+//     top: -1rem; left: -1rem;
+//     width: 1rem; height: 1rem;
+// }
+@mixin before-checkmark($height, $color) {
+  &:before {
+    /*Add another block-level blank space*/
+    content: "";
+    display: block;
+
+    /*Make it a small rectangle so the border will create an L-shape*/
+    width: $height * 0.5;
+    height: $height;
+
+    /*Add a white border on the bottom and left, creating that 'L' */
+    border: solid $color;
+    border-width: 0 $height/3 $height/3 0;
+
+    /*Rotate the L 45 degrees to turn it into a checkmark*/
+    transform: rotate(45deg);
+    position: absolute;
+    left: 0;
+    top: $height;
+  }
+}
+@mixin truncate($truncation-boundary) {
+  max-width: $truncation-boundary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
