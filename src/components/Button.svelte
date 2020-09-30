@@ -1,11 +1,11 @@
 <script>
   import { createEventDispatcher } from "svelte";
 
-  export let text;
-  export let hiddenText;
-  export let iconPlus;
-  export let iconBasket;
-  export let link;
+  export let text = "";
+  export let hiddenText = "";
+  export let iconPlus = false;
+  export let iconBasket = false;
+  export let link = "";
   const dispatch = createEventDispatcher();
 
   const triggerEvent = () => {
@@ -20,15 +20,14 @@
   .AddToBagButton {
     cursor: pointer;
     outline: none;
-  }
-  .AddToBagButtonLarge {
-    padding: 0.8em 2.5em;
+    max-width: 17.5rem;
+    padding: 0.8em 2.5rem;
     border: 1px solid $greenColor;
     background-color: $greenColor;
     color: #fff;
     text-decoration: none;
     font-size: 0.875rem;
-    line-height: 1.2em;
+    line-height: 1.2rem;
     letter-spacing: 1px;
     position: relative;
     display: inline-block;

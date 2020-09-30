@@ -28,5 +28,4 @@ const app = tampermonkey
 // const app = new App({
 // 	target: document.body,
 // });
-
 export default app;

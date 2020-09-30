@@ -1,6 +1,6 @@
-import { readable } from "svelte/store";
+import { readable, writable } from "svelte/store";
 
-let imagesGitStorage =
+export const headerHeight = writable(0);
+
+export let imagesGitStorage =
   "https://raw.githubusercontent.com/miguelRivero/machine-plp/master/public/images/";
-
-export { imagesGitStorage };

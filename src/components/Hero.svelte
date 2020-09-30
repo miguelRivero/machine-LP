@@ -1,9 +1,21 @@
 <script>
   import { imagesGitStorage } from "../store.js";
   import Button from "./Button.svelte";
+  import { createEventDispatcher } from "svelte";
+
+  const dispatch = createEventDispatcher();
+
   const clickHandler = (e) => {
     console.log("clicked");
   };
+
+  // onMount(() => {
+  //   unsubscribe = headerHeight.subscribe((value) => (header_height = value));
+  // });
+
+  // onDestroy(() => {
+  //   if (unsubscribe) unsubscribe();
+  // });
 </script>
 
 <style type="text/scss">
@@ -66,14 +78,18 @@
   <ul class="subscriptionHero__points">
     <li>Your machine for <strong>$1</strong></li>
     <li>
-      <strong>Monthly credit</strong> to spend on all coffees and accesories
+      <strong>Monthly credit</strong>
+      to spend on all coffees and accesories
     </li>
     <li><strong>Unlimited</strong> free deliveries</li>
   </ul>
-  <Button
-    text="SEE ALL MACHINES"
-    hiddenText=""
-    iconPlus={false}
-    iconBasket={false}
-    on:buttonClick={clickHandler} />
+
+  <div id="Hero__AddToBagButton">
+    <Button
+      text="SEE ALL MACHINES"
+      hiddenText=""
+      iconPlus={false}
+      iconBasket={false}
+      on:buttonClick={clickHandler} />
+  </div>
 </section>

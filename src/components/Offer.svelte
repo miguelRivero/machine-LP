@@ -1,33 +1,25 @@
 <script>
   import { onMount } from "svelte";
   import Glide from "@glidejs/glide";
-  import { getProduct } from "../index.js";
   import Button from "./Button.svelte";
   import Arrow from "./Arrow.svelte";
-  // import { imagesGitStorage } from "../store.js";
 
+  export let machine = {};
   let gliderEl;
 
-  async function getData() {
-    let item;
-    try {
-      item = await getProduct("BNE800BSSUK");
-    } catch (e) {}
-    return item;
-  }
-
-  let offeredMachine = getData();
   const clickHandler = (e) => {
     console.log("clicked");
   };
+
   onMount(() => {
-    setTimeout(function () {
+    console.log(machine);
+    setTimeout(() => {
       var glide = new Glide(gliderEl, {
         perView: 1,
         type: "carousel",
       });
       glide.mount();
-    }, 0);
+    }, 500);
   });
 </script>
 
@@ -69,6 +61,7 @@
     letter-spacing: 1px;
     line-height: 1.3125rem;
     text-align: left;
+    margin-bottom: 1rem;
     li {
       margin-bottom: 0.5rem;
       padding-left: 0.75rem;
@@ -124,84 +117,76 @@
   .glide__bullet--active {
     background-color: #000000;
   }
+  .glide__slide {
+    margin-top: 0;
+    width: 100%;
+    position: relative;
+  }
 </style>
 
-{#await offeredMachine then machine}
-  <section id="offer" class="perfectMatch">
-    <div class="perfectMatch__container">
-      <div class="perfectMatch__content">
-        <h2 class="perfectMatch__title">MIGHT BE YOUR PERFECT MATCH</h2>
-        <div class="perfectmatch__machine">
-          <div class="perfectMatch__machineSlider glide" bind:this={gliderEl}>
-            <div data-glide-el="track" class="glide__track">
-              <ul class="glide__slides">
-                {#each machine.slides as slide}
-                  <li class="glide__slide">
-                    <!-- <img itemprop="image" 
-                    srcset="{slide.url}?impolicy=productPdpMainDefault&amp;imwidth=1568 1x, {slide.url}?impolicy=productPdpMainDefault&amp;imwidth=3136 2x" 
-                    src="{slide.url}?impolicy=productPdpMainDefault&amp;imwidth=1568" 
-                    role="presentation" class="ResponsiveImage ResponsiveImage--flexible" alt="" width="1568" height="608"> -->
-                    <img
-                      itemprop="image"
-                      srcset="{slide.url}?impolicy=productPdpSafeZone&imwidth=1238 1x, {slide.url}?impolicy=productPdpSafeZone&imwidth=2476 2x"
-                      src="{slide.url}?impolicy=productPdpSafeZone&imwidth=1238"
-                      role="presentation"
-                      class="ResponsiveImage ProductDetailsImage
-                        ResponsiveImage--flexible"
-                      alt=""
-                      width="1238"
-                      height="778" />
-                  </li>
-                {/each}
-              </ul>
-            </div>
-            <div class="glide__bullets" data-glide-el="controls[nav]">
-              {#each machine.slides as slide, i}
-                <button class="glide__bullet" data-glide-dir="={i}" />
+<section id="offer" class="perfectMatch">
+  <div class="perfectMatch__container">
+    <div class="perfectMatch__content">
+      <h2 class="perfectMatch__title">MIGHT BE YOUR PERFECT MATCH</h2>
+      <div class="perfectmatch__machine">
+        <div class="perfectMatch__machineSlider glide" bind:this={gliderEl}>
+          <div data-glide-el="track" class="glide__track">
+            <ul class="glide__slides">
+              {#each machine.slides as slide}
+                <li class="glide__slide">
+                  <img
+                    itemprop="image"
+                    src="{slide.url}?impolicy=productPdpSafeZone&imwidth=1238"
+                    role="presentation"
+                    class="ResponsiveImage ProductDetailsImage ResponsiveImage--flexible"
+                    alt=""
+                    width="1238"
+                    height="778" />
+                </li>
               {/each}
-            </div>
-          </div>
-          <div class="perfectMatch__machineInfo">
-            <h4 class="perfectMatch__name">{machine.category}</h4>
-            <div class="perfectMatch__price perfectMatch__price--m">
-              <p><span>£1.00</span>+ £55.00 / month</p>
-              <p>instead of £{machine.price}</p>
-            </div>
-            <ul class="perfectMatch__description">
-              <li>{machine.headline}</li>
-              <li>Free Delivery</li>
-              <li>24 months minimum term</li>
             </ul>
-            <div class="perfectMatch__priceCta">
-              <div class="perfectMatch__price perfectMatch__price--d">
-                <p><span>£1.00</span>+ £55.00 / month</p>
-                <p class="perfectMatch__price__original">
-                  instead of £{machine.price}
-                </p>
-              </div>
-              <div class="perfectMatch__cta">
-                <Button
-                  text="SUBSCRIBE"
-                  hiddenText=""
-                  iconPlus={true}
-                  iconBasket={false}
-                  on:buttonClick={clickHandler} />
-                <!-- <a
-                  class="track-click"
-                  onclick="promoClickNew('machine-pdp-subscription-banner', 'Subscription', 'pdp-banner', 'pdp-banner')"
-                  href="../../../machine-subscription"
-                  target="_blank">SUBSCRIBE</a> -->
-                <div class="perfectMatch__moreAbout">
-                  <a href={machine.pdpURLs.desktop}>
-                    <span>More about this machine</span>
-                    <Arrow type="right" color="brown" />
-                  </a>
-                </div>
+          </div>
+          <div class="glide__bullets" data-glide-el="controls[nav]">
+            {#each machine.slides as slide, i}
+              <button class="glide__bullet" data-glide-dir="={i}" />
+            {/each}
+          </div>
+        </div>
+        <div class="perfectMatch__machineInfo">
+          <h4 class="perfectMatch__name">{machine.category}</h4>
+          <div class="perfectMatch__price perfectMatch__price--m">
+            <p><span>£1.00</span>+ £55.00 / month</p>
+            <p>instead of £{machine.price}</p>
+          </div>
+          <ul class="perfectMatch__description">
+            <li>{machine.headline}</li>
+            <li>Free Delivery</li>
+            <li>24 months minimum term</li>
+          </ul>
+          <div class="perfectMatch__priceCta">
+            <div class="perfectMatch__price perfectMatch__price--d">
+              <p><span>£1.00</span>+ £55.00 / month</p>
+              <p class="perfectMatch__price__original">
+                instead of £{machine.price}
+              </p>
+            </div>
+            <div class="perfectMatch__cta">
+              <Button
+                text="SUBSCRIBE"
+                hiddenText=""
+                iconPlus={true}
+                iconBasket={false}
+                on:buttonClick={clickHandler} />
+              <div class="perfectMatch__moreAbout">
+                <a href={machine.pdpURLs.desktop}>
+                  <span>More about this machine</span>
+                  <Arrow type="right" color="brown" />
+                </a>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
-{/await}
+  </div>
+</section>
