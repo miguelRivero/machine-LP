@@ -41,6 +41,7 @@
   .AddToBagButtonLarge__label {
     width: 100%;
     text-align: center;
+    font-family: $lucasBold;
     @include truncate(unset);
   }
   .AddToBagButtonLarge__plusIcon {
@@ -49,9 +50,10 @@
     top: 10px;
     font-size: 1.125rem;
   }
-  @include mq("tablet-wide") {
-    .AddToBagButtonLarge {
-      width: 255px;
+  @include mq("tablet") {
+    .AddToBagButton {
+      width: 19.25rem;
+      max-width: none;
     }
   }
 </style>
