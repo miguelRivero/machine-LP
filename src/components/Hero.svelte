@@ -8,14 +8,6 @@
   const clickHandler = (e) => {
     console.log("clicked");
   };
-
-  // onMount(() => {
-  //   unsubscribe = headerHeight.subscribe((value) => (header_height = value));
-  // });
-
-  // onDestroy(() => {
-  //   if (unsubscribe) unsubscribe();
-  // });
 </script>
 
 <style type="text/scss">

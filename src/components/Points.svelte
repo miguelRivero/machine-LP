@@ -24,8 +24,10 @@
 
 <style type="text/scss">
   @import "../scss/variables";
+  @import "../scss/mixins";
+
   .subscriptionPoints {
-    padding: 30px 20px;
+    padding: 1.875rem 1.25rem;
     background-color: white;
   }
   h3 {
@@ -39,11 +41,23 @@
   ul {
     list-style: none;
   }
+  @include mq("tablet") {
+    .subscriptionPoints {
+      padding-top: 4rem;
+      padding-bottom: 3.75rem;
+    }
+    h3 {
+      margin-bottom: 3.25rem;
+    }
+    ul {
+      display: flex;
+    }
+  }
 </style>
 
 <section id="points" class="subscriptionPoints">
   <h3>HOW DOES IT WORK?</h3>
-  <ul>
+  <ul class="restrict">
     {#each copyTexts as copy}
       <IconListItem title={copy.title} text={copy.text} icon={copy.icon} />
     {/each}

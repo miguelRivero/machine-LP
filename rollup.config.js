@@ -7,6 +7,8 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import preprocess from "svelte-preprocess";
 import postcss from "rollup-plugin-postcss";
+import bundleSize from "rollup-plugin-bundle-size";
+
 //import json from "@rollup/plugin-json";
 //import jscc from "rollup-plugin-jscc";
 
@@ -129,6 +131,7 @@ export default {
     terser(),
     //production && terser(),
     //production && terser({ output: { comments: false } })
+    bundleSize(),
   ],
   watch: {
     clearScreen: false,

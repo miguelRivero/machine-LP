@@ -4,6 +4,7 @@
 
 <style type="text/scss">
   @import "../scss/variables";
+  @import "../scss/mixins";
   p {
     text-align: left;
     letter-spacing: 1px;
@@ -14,7 +15,7 @@
     position: relative;
     padding-left: 4rem;
     margin-bottom: 0.75rem;
-    &:after {
+    &:before {
       position: absolute;
       top: 0;
       left: 0;
@@ -23,17 +24,17 @@
     }
   }
   .machine {
-    &:after {
+    &:before {
       content: url("#{$imagesGitStorage}/icons/machine_icon.svg");
     }
   }
   .myaccount {
-    &:after {
+    &:before {
       content: url("#{$imagesGitStorage}/icons/myaccount_icon.svg");
     }
   }
   .cups {
-    &:after {
+    &:before {
       content: url("#{$imagesGitStorage}/icons/cups_icon.svg");
     }
   }
@@ -49,6 +50,22 @@
     color: #000000;
     font-family: $lucasLight;
     font-size: 1.125rem;
+  }
+  @include mq("tablet") {
+    li {
+      text-align: left;
+      padding-left: 2rem;
+      &:before {
+        position: relative;
+      }
+      &:first-child {
+        padding-left: 0;
+      }
+    }
+
+    .subscriptionHero__pointTitle {
+      padding-top: 0.5rem;
+    }
   }
 </style>
 

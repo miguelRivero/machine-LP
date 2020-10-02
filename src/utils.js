@@ -13,19 +13,24 @@ function checkNapiAvailable() {
   }
 }
 
-export function visibleY(el, offset) {
+export function visibleEl(el, offset) {
   let rect = el.getBoundingClientRect(),
     elemTop = rect.top,
     elemBottom = rect.bottom,
+    elemMiddle = (elemBottom - elemTop) * 0.5,
     margin = offset ? offset : 0;
-  console.log(margin);
+  // console.log(margin);
   // Only completely visible elements return true:
-  let isVisible = elemTop >= margin && elemBottom <= window.innerHeight;
+  let isVisible = elemTop >= margin && elemMiddle <= window.innerHeight;
   // Partially visible elements return true:
   //isVisible = elemTop < window.innerHeight && elemBottom >= 0;
   return isVisible;
 }
 
-export async function getProduct(sku) {
+export async function getProductData(sku) {
   return napi.catalog().getProduct(sku);
+}
+
+export async function getSubscriptionData() {
+  return napi.market().getSubscriptions();
 }

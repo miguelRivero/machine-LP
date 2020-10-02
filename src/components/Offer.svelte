@@ -1,26 +1,15 @@
 <script>
-  import { onMount } from "svelte";
-  import Glide from "@glidejs/glide";
   import Button from "./Button.svelte";
   import Arrow from "./Arrow.svelte";
+  import Slider from "./SliderSwipe.svelte";
+  import getSymbolFromCurrency from "currency-symbol-map";
 
-  export let machine = {};
-  let gliderEl;
-
+  export let data = {};
   const clickHandler = (e) => {
     console.log("clicked");
   };
 
-  onMount(() => {
-    console.log(machine);
-    setTimeout(() => {
-      var glide = new Glide(gliderEl, {
-        perView: 1,
-        type: "carousel",
-      });
-      glide.mount();
-    }, 500);
-  });
+  const currSymbol = getSymbolFromCurrency(data.machine.currency);
 </script>
 
 <style type="text/scss" global>
@@ -64,7 +53,7 @@
     margin-bottom: 1rem;
     li {
       margin-bottom: 0.5rem;
-      padding-left: 0.75rem;
+      padding-left: 1.375rem;
       position: relative;
       @include before-checkmark(6px, $greenColor);
     }
@@ -106,21 +95,72 @@
     letter-spacing: 1px;
     line-height: 1.3125rem;
   }
-  .glide__bullet {
-    height: 11px;
-    width: 11px;
-    border: 1px solid #000000;
-    border-radius: 100%;
-    margin: 0 10px;
-    padding: 0;
-  }
-  .glide__bullet--active {
-    background-color: #000000;
-  }
-  .glide__slide {
-    margin-top: 0;
-    width: 100%;
-    position: relative;
+  @include mq("tablet") {
+    .perfectMatch__container {
+      background: linear-gradient(to bottom, #f6f4f2 74%, white 0);
+    }
+    .perfectMatch__machine {
+      position: relative;
+    }
+    .perfectMatch__machineInfo {
+      position: absolute;
+      background-color: white;
+      border: 1px solid #dbdbdb;
+      padding: 1.75rem 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 0;
+      width: 50%;
+      text-align: left;
+    }
+    .perfectMatch__name {
+      text-align: left;
+      margin-top: 0;
+      margin-bottom: 2rem;
+      font-size: 1.5rem;
+      letter-spacing: 2px;
+      line-height: 2rem;
+    }
+    .perfectMatch__price {
+      &--m {
+        display: none;
+      }
+      &--d {
+        display: block;
+      }
+    }
+    .perfectMatch__description {
+      margin-bottom: 3rem;
+    }
+
+    .perfectMatch__priceCta {
+      // display: flex;
+      // justify-content: space-between;
+      display: block;
+      .AddToBagButton {
+        max-width: 242px;
+        width: 100%;
+      }
+    }
+    .perfectMatch__moreAbout {
+      text-align: left;
+    }
+
+    .perfectMatch__cta {
+      margin-left: 0;
+      margin-top: 1rem;
+    }
+    @include mq("tablet-wide") {
+      .perfectMatch__priceCta {
+        display: flex;
+        justify-content: space-between;
+      }
+      .perfectMatch__cta {
+        margin-left: 2rem;
+        margin-top: 0;
+        min-width: 14.5rem;
+      }
+    }
   }
 </style>
 
@@ -128,46 +168,29 @@
   <div class="perfectMatch__container">
     <div class="perfectMatch__content">
       <h2 class="perfectMatch__title">MIGHT BE YOUR PERFECT MATCH</h2>
-      <div class="perfectmatch__machine">
-        <div class="perfectMatch__machineSlider glide" bind:this={gliderEl}>
-          <div data-glide-el="track" class="glide__track">
-            <ul class="glide__slides">
-              {#each machine.slides as slide}
-                <li class="glide__slide">
-                  <img
-                    itemprop="image"
-                    src="{slide.url}?impolicy=productPdpSafeZone&imwidth=1238"
-                    role="presentation"
-                    class="ResponsiveImage ProductDetailsImage ResponsiveImage--flexible"
-                    alt=""
-                    width="1238"
-                    height="778" />
-                </li>
-              {/each}
-            </ul>
-          </div>
-          <div class="glide__bullets" data-glide-el="controls[nav]">
-            {#each machine.slides as slide, i}
-              <button class="glide__bullet" data-glide-dir="={i}" />
-            {/each}
-          </div>
-        </div>
+      <div class="perfectMatch__machine">
+        <Slider slides={data.machine.slides} />
         <div class="perfectMatch__machineInfo">
-          <h4 class="perfectMatch__name">{machine.category}</h4>
+          <h4 class="perfectMatch__name">{data.machine.category}</h4>
           <div class="perfectMatch__price perfectMatch__price--m">
-            <p><span>£1.00</span>+ £55.00 / month</p>
-            <p>instead of £{machine.price}</p>
+            <p><span>{currSymbol}1.00</span>+ {currSymbol}55.00 / month</p>
+            <p>instead of {currSymbol}{data.machine.price}</p>
           </div>
           <ul class="perfectMatch__description">
-            <li>{machine.headline}</li>
+            <li>{data.machine.headline}</li>
             <li>Free Delivery</li>
             <li>24 months minimum term</li>
           </ul>
           <div class="perfectMatch__priceCta">
             <div class="perfectMatch__price perfectMatch__price--d">
-              <p><span>£1.00</span>+ £55.00 / month</p>
+              <p>
+                <span>{currSymbol}{data.plan.promotionalPrice.toFixed(2)}</span>+
+                {currSymbol}{data.plan.periodicFee.toFixed(2)}
+                / month
+              </p>
               <p class="perfectMatch__price__original">
-                instead of £{machine.price}
+                instead of
+                {currSymbol}{data.machine.price}
               </p>
             </div>
             <div class="perfectMatch__cta">
@@ -178,7 +201,7 @@
                 iconBasket={false}
                 on:buttonClick={clickHandler} />
               <div class="perfectMatch__moreAbout">
-                <a href={machine.pdpURLs.desktop}>
+                <a href={data.machine.pdpURLs.desktop}>
                   <span>More about this machine</span>
                   <Arrow type="right" color="brown" />
                 </a>

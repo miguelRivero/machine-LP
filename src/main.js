@@ -5,6 +5,16 @@ import "core-js/es/array/fill";
 import "core-js/es/object";
 import "core-js/es/map";
 
+//Hide smart banner
+const toHide = [".smartbanner", "#topDelBan"];
+const hideElements = (arr) => {
+  for (const item of arr) {
+    let smartbanner = document.querySelector(item);
+    if (smartbanner) smartbanner.style.display = "none";
+  }
+};
+//hideElements(toHide);
+
 //Promise.resolve();
 const tampermonkey = true;
 

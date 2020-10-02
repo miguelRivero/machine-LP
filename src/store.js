@@ -1,6 +1,8 @@
-import { readable, writable } from "svelte/store";
+import { derived, writable } from "svelte/store";
 
-export const headerHeight = writable(0);
-
+export const viewportWidth = writable(0);
+export const desktopView = derived(viewportWidth, ($viewportWidth) => {
+  return $viewportWidth > 767;
+});
 export let imagesGitStorage =
   "https://raw.githubusercontent.com/miguelRivero/machine-plp/master/public/images/";

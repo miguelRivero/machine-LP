@@ -1,17 +1,17 @@
 <script>
   import Button from "./Button.svelte";
-  import { onMount, onDestroy } from "svelte";
-  import { headerHeight } from "../store.js";
+  // import { onMount, onDestroy } from "svelte";
+  // import { headerHeight } from "../store.js";
 
-  let header_height, unsubscribe;
+  // let header_height, unsubscribe;
 
-  onMount(() => {
-    unsubscribe = headerHeight.subscribe((value) => (header_height = value));
-  });
+  // onMount(() => {
+  //   unsubscribe = headerHeight.subscribe((value) => (header_height = value));
+  // });
 
-  onDestroy(() => {
-    if (unsubscribe) unsubscribe();
-  });
+  // onDestroy(() => {
+  //   if (unsubscribe) unsubscribe();
+  // });
 
   const clickHandler = (e) => {
     console.log("clicked");

@@ -65,6 +65,7 @@
 
 <style type="text/scss" global>
   @import "../scss/variables";
+  @import "../scss/mixins";
   $handorgel__content--open-transition-height-time: 0.3s;
   $handorgel__content--open-transition-opacity-time: 0.3s;
   $handorgel__content-transition-height-time: 0.5s;
@@ -95,7 +96,6 @@
     // max-width: 31.25em;
     margin: 0 auto;
     text-align: left;
-
     h2 {
       color: #ffffff;
       font-family: $lucasLight;
@@ -104,76 +104,81 @@
       letter-spacing: 0.375rem;
       line-height: 2.5rem;
     }
+  }
 
-    .handorgel {
-      border: none;
-      margin-bottom: 2rem;
+  .handorgel {
+    border: none;
+    margin-bottom: 2rem;
+  }
+  .handorgel__header {
+    border: none;
+    color: #ffffff;
+    font-family: $lucasBold;
+    font-size: 1rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 1.5rem;
+    position: relative;
+
+    &:before {
+      content: "";
+      position: absolute;
+      border: 1px solid white;
+      border-radius: 100%;
+      width: 22px;
+      height: 22px;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%) scale(-1);
+      transition: 0.25s ease;
     }
-    .handorgel__header {
-      border: none;
-      color: #ffffff;
-      font-family: $lucasBold;
-      font-size: 1rem;
-      font-weight: bold;
-      letter-spacing: 1px;
-      line-height: 1.5rem;
-      position: relative;
-
+    &:after {
+      content: "";
+      position: absolute;
+      border-right: 2px solid white;
+      border-bottom: 2px solid white;
+      width: 6px;
+      height: 6px;
+      top: calc(50% - 1px);
+      left: 8px;
+      transform: translateY(-50%) rotate(225deg) scale(-1);
+      transition: 0.25s ease;
+    }
+    &.handorgel__header--opened {
       &:before {
-        content: "";
-        position: absolute;
-        border: 1px solid white;
-        border-radius: 100%;
-        width: 22px;
-        height: 22px;
-        top: 50%;
-        left: 0;
-        transform: translateY(-50%) scale(-1);
-        transition: 0.25s ease;
+        transform: translateY(-50%) scale(1);
       }
       &:after {
-        content: "";
-        position: absolute;
-        border-right: 2px solid white;
-        border-bottom: 2px solid white;
-        width: 6px;
-        height: 6px;
-        top: calc(50% - 1px);
-        left: 8px;
-        transform: translateY(-50%) rotate(225deg) scale(-1);
-        transition: 0.25s ease;
+        top: calc(50% + 1px);
+        transform: translateY(-50%) rotate(225deg) scale(1);
       }
-      &.handorgel__header--opened {
-        &:before {
-          transform: translateY(-50%) scale(1);
-        }
-        &:after {
-          top: calc(50% + 1px);
-          transform: translateY(-50%) rotate(225deg) scale(1);
-        }
-      }
-    }
-    .handorgel__header__button {
-      background-color: transparent;
-      border-top: none;
-      padding: 1rem 1rem 1rem 2.5rem;
-      &:not(:disabled):active {
-        background-color: transparent;
-      }
-    }
-    .handorgel__content {
-      color: white;
-      border-top: none;
-      background-color: transparent;
-      font-family: $lucasLight;
-      font-size: 1rem;
-      letter-spacing: 1px;
-      line-height: 1.5rem;
-    }
-    .handorgel__content__inner {
-      padding: 0 1rem 0.5rem 2.5rem;
     }
   }
+  .handorgel__header--open .handorgel__header__button {
+    background-color: transparent;
+  }
+  .handorgel__header__button {
+    background-color: transparent;
+    border-top: none;
+    padding: 1rem 1rem 1rem 2.5rem;
+    &:not(:disabled):active {
+      background-color: transparent;
+    }
+  }
+
+  .handorgel__content {
+    color: white;
+    border-top: none;
+    background-color: transparent;
+    font-family: $lucasLight;
+    font-size: 1rem;
+    letter-spacing: 1px;
+    line-height: 1.5rem;
+  }
+  .handorgel__content__inner {
+    padding: 0 1rem 0.5rem 2.5rem;
+  }
+
   .subscriptionFaq__container {
     text-align: center;
     margin: 0 auto;
@@ -183,6 +188,11 @@
     width: 100%;
     max-width: 21.4375rem;
     margin-bottom: 1.5rem;
+  }
+  @include mq("tablet") {
+    .handorgel {
+      padding-left: 16px;
+    }
   }
 </style>
 
@@ -198,7 +208,7 @@
       src={top_image}
       alt="FAQ Machine Image" />
 
-    <div class="subscriptionFaq__content">
+    <div class="subscriptionFaq__content restrict">
       <h2>STILL HAVE QUESTIONS?</h2>
 
       <div class="handorgel" bind:this={hand_accordion}>
