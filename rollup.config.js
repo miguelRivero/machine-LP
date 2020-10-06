@@ -62,12 +62,22 @@ if (!bundle) {
 
 export default {
   input: "src/main.js",
-  output: {
-    sourcemap: true,
-    format: "iife",
-    name: "app",
-    file: "public/build/bundle.js",
-  },
+  output: [
+    // ES module version, for modern browsers
+    {
+      dir: "public/module",
+      format: "es",
+      sourcemap: true,
+      chunkFileNames: "[name].js",
+    },
+    // SystemJS version, for older browsers
+    {
+      dir: "public/nomodule",
+      format: "system",
+      sourcemap: true,
+    },
+  ],
+
   plugins: [
     svelte(svelteConfig),
     // jscc({
@@ -131,7 +141,7 @@ export default {
     terser(),
     //production && terser(),
     //production && terser({ output: { comments: false } })
-    bundleSize(),
+    //bundleSize(),
   ],
   watch: {
     clearScreen: false,
