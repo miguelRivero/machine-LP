@@ -62,22 +62,12 @@ if (!bundle) {
 
 export default {
   input: "src/main.js",
-  output: [
-    // ES module version, for modern browsers
-    {
-      dir: "public/module",
-      format: "es",
-      sourcemap: true,
-      chunkFileNames: "[name].js",
-    },
-    // SystemJS version, for older browsers
-    {
-      dir: "public/nomodule",
-      format: "system",
-      sourcemap: true,
-    },
-  ],
-
+  output: {
+    sourcemap: true,
+    format: "iife",
+    name: "app",
+    file: "public/iife/bundle.js",
+  },
   plugins: [
     svelte(svelteConfig),
     // jscc({
