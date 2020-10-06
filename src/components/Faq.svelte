@@ -57,19 +57,19 @@
     ];
 
   onMount(() => {
-    var accordion = new Handorgel(hand_accordion);
-    // accordion.folds[0].open();
-    // console.log(accordion.folds);
+    var accordion = new Handorgel(hand_accordion, {
+      initialOpenTransitionDelay: 0,
+    });
   });
 </script>
 
 <style type="text/scss" global>
   @import "../scss/variables";
   @import "../scss/mixins";
-  $handorgel__content--open-transition-height-time: 0.3s;
-  $handorgel__content--open-transition-opacity-time: 0.3s;
-  $handorgel__content-transition-height-time: 0.5s;
-  $handorgel__content-transition-opacity-time: 0.3s;
+  $handorgel__content--open-transition-height-time: 0.15s;
+  $handorgel__content--open-transition-opacity-time: 0.15s;
+  $handorgel__content-transition-height-time: 0.3s;
+  $handorgel__content-transition-opacity-time: 0.15s;
   @import "../../node_modules/handorgel/src/scss/style";
 
   .subscriptionFaq {
@@ -113,13 +113,35 @@
   .handorgel__header {
     border: none;
     color: #ffffff;
+
+    position: relative;
+    &.handorgel__header--opened {
+      .handorgel__header__button {
+        &:before {
+          transform: translateY(-50%) scale(1);
+        }
+        &:after {
+          top: calc(50% + 1px);
+          transform: translateY(-50%) rotate(225deg) scale(1);
+        }
+      }
+    }
+  }
+  .handorgel__header--focus .handorgel__header__button,
+  .handorgel__header--open .handorgel__header__button {
+    background-color: transparent;
+  }
+  .handorgel__header__button {
+    background-color: transparent;
+    border-top: none;
+    padding: 1rem 1rem 1rem 2.5rem;
     font-family: $lucasBold;
     font-size: 1rem;
-    font-weight: bold;
     letter-spacing: 1px;
     line-height: 1.5rem;
-    position: relative;
-
+    &:not(:disabled):active {
+      background-color: transparent;
+    }
     &:before {
       content: "";
       position: absolute;
@@ -144,38 +166,18 @@
       transform: translateY(-50%) rotate(225deg) scale(-1);
       transition: 0.25s ease;
     }
-    &.handorgel__header--opened {
-      &:before {
-        transform: translateY(-50%) scale(1);
-      }
-      &:after {
-        top: calc(50% + 1px);
-        transform: translateY(-50%) rotate(225deg) scale(1);
-      }
-    }
-  }
-  .handorgel__header--open .handorgel__header__button {
-    background-color: transparent;
-  }
-  .handorgel__header__button {
-    background-color: transparent;
-    border-top: none;
-    padding: 1rem 1rem 1rem 2.5rem;
-    &:not(:disabled):active {
-      background-color: transparent;
-    }
   }
 
   .handorgel__content {
     color: white;
     border-top: none;
     background-color: transparent;
+  }
+  .handorgel__content__inner {
     font-family: $lucasLight;
     font-size: 1rem;
     letter-spacing: 1px;
     line-height: 1.5rem;
-  }
-  .handorgel__content__inner {
     padding: 0 1rem 0.5rem 2.5rem;
   }
 
@@ -215,7 +217,7 @@
         {#each faq_text as faq}
           <h3 class="handorgel__header">
             <button
-              class="handorgel__header__button">{@html faq.question}</button>
+              class="handorgel__header__button"><span>{@html faq.question}</span></button>
           </h3>
           <div class="handorgel__content">
             <div class="handorgel__content__inner">

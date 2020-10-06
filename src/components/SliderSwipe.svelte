@@ -1,10 +1,11 @@
 <script>
-  import { onMount, onDestroy, beforeUpdate, afterUpdate } from "svelte";
+  import { onMount, onDestroy, tick } from "svelte";
   import { Swipe, SwipeItem } from "svelte-swipe"; // gzipped 3.37 KB
   import { desktopView } from "../store.js";
 
   const unsubscribe = desktopView.subscribe((value) => (desktop = value));
-  let swipeConfig, desktop;
+
+  let swipeConfig, desktop, slider, slidetems, dots;
 
   onDestroy(unsubscribe);
   $: imgWidth = desktop ? 1568 : 1238;
@@ -22,23 +23,45 @@
       transitionDuration: 1000,
       defaultIndex: 0,
     };
+    setTimeout(function () {
+      slider = document.getElementById("offer");
+      dots = slider.querySelectorAll(".swipe-indicator > .dot");
+      slidetems = slider.querySelectorAll(".swipeable-item");
+      addCustomClickEvent();
+    }, 1000);
+
     // }, 0);
   });
+
+  const addCustomClickEvent = () => {
+    dots.forEach((element, i) => {
+      element.addEventListener("click", function (event) {
+        setCustomActiveSlide(i);
+      });
+    });
+  };
+
+  const setCustomActiveSlide = (index) => {
+    slidetems.forEach((element, i) => {
+      if (index === i) {
+        element.classList.add("is-active");
+      } else {
+        element.classList.remove("is-active");
+      }
+    });
+  };
 </script>
 
 <style type="text/scss">
   @import "../scss/mixins";
 
   :global(.swipe-holder) {
-    height: 30vh;
+    height: 50vh;
     width: 100%;
   }
-  :global(.swipeable-item) {
-    background: linear-gradient(to bottom, #f6f4f2 75%, white 0);
-  }
+
   #offer {
     :global(.swipe-indicator) {
-      bottom: 10px;
       :global(.dot) {
         border-color: black;
         margin: 0 10px;
@@ -49,11 +72,30 @@
     }
   }
   .SliderItemImage {
-    max-width: 100%;
     height: auto;
+    max-width: 140%;
     mix-blend-mode: multiply;
-    background-size: cover;
-    background-position: center;
+    position: absolute;
+    // width: 200%;
+    // transform: translateX(-25%);
+  }
+
+  // :global(.swipeable-items) {
+  //   position: absolute !important;
+  //   width: 130% !important;
+  //   left: 65% !important;
+  //   transform: translateX(-65%) !important;
+  // }
+  :global(.swipeable-item) {
+    background: linear-gradient(to bottom, #f6f4f2 61%, white 0);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    &.is-active {
+      z-index: 10;
+    }
   }
   @include mq("tablet") {
     #offer {
@@ -75,9 +117,10 @@
       transform: translateX(-25%);
     }
     :global(.swipeable-slot-wrapper) {
-      width: 440px;
       overflow: hidden;
-      height: 440px;
+    }
+    :global(.swipeable-item) {
+      background: linear-gradient(to bottom, #f6f4f2 65%, white 0);
     }
     .SliderItemImage {
       position: absolute;

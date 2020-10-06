@@ -25,12 +25,14 @@
     font-weight: 300;
     letter-spacing: 0.375rem;
     line-height: 2.5rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
   .perfectMatch__container {
     background: linear-gradient(to bottom, #f6f4f2 50%, white 0);
   }
   .perfectMatch__content {
-    padding: 2.5rem 2.5rem 2rem;
+    padding: 2.5rem 0 2rem;
   }
   .perfectMatch__name {
     color: #000000;
@@ -95,9 +97,13 @@
     letter-spacing: 1px;
     line-height: 1.3125rem;
   }
+  .perfectMatch__machineInfo {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
   @include mq("tablet") {
     .perfectMatch__container {
-      background: linear-gradient(to bottom, #f6f4f2 74%, white 0);
+      background: linear-gradient(to bottom, #f6f4f2 66.5%, white 0);
     }
     .perfectMatch__machine {
       position: relative;
