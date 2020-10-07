@@ -103,8 +103,11 @@
   }
   @include mq("tablet") {
     .perfectMatch__container {
-      background: linear-gradient(to bottom, #f6f4f2 66.5%, white 0);
+      background: linear-gradient(to bottom, #f6f4f2 71%, white 0);
     }
+    // .perfectMatch__title {
+    //   margin-bottom: 64px;
+    // }
     .perfectMatch__machine {
       position: relative;
     }

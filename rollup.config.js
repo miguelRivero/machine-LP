@@ -7,14 +7,36 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import preprocess from "svelte-preprocess";
 import postcss from "rollup-plugin-postcss";
-import bundleSize from "rollup-plugin-bundle-size";
+import del from "rollup-plugin-delete";
+
+//import bundleSize from "rollup-plugin-bundle-size";
 
 //import json from "@rollup/plugin-json";
 //import jscc from "rollup-plugin-jscc";
 
 var path = require("path");
+let svelteConfig, buildType;
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
+
+buildType = getBuildType("amd");
+function getBuildType(type) {
+  if (type === "amd") {
+    return {
+      sourcemap: true,
+      format: "amd",
+      dir: "public/build/amd",
+      chunkFileNames: "[name].js",
+    };
+  } else {
+    return {
+      sourcemap: true,
+      format: "iife",
+      name: "app",
+      file: "public/build/iife/bundle.js",
+    };
+  }
+}
 
 function serve() {
   let server;
@@ -41,7 +63,6 @@ function serve() {
   };
 }
 
-let svelteConfig;
 if (!bundle) {
   svelteConfig = {
     // enable run-time checks when not in production
@@ -62,12 +83,7 @@ if (!bundle) {
 
 export default {
   input: "src/main.js",
-  output: {
-    sourcemap: true,
-    format: "iife",
-    name: "app",
-    file: "public/iife/bundle.js",
-  },
+  output: buildType,
   plugins: [
     svelte(svelteConfig),
     // jscc({
@@ -132,6 +148,7 @@ export default {
     //production && terser(),
     //production && terser({ output: { comments: false } })
     //bundleSize(),
+    del({ targets: "public/build/*" }),
   ],
   watch: {
     clearScreen: false,

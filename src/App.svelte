@@ -2,12 +2,18 @@
   import { onMount } from "svelte";
   import Hero from "./components/Hero.svelte";
   import Points from "./components/Points.svelte";
-  import Faq from "./components/Faq.svelte";
+  //import Faq from "./components/Faq.svelte";
   import Offer from "./components/Offer.svelte";
   import StickyButton from "./components/StickyButton.svelte";
   import { getProductData, getSubscriptionData, visibleEl } from "./utils.js";
   import { viewportWidth } from "./store.js";
   import throttle from "just-throttle";
+
+  //AMD SPLIT MODE
+  async function loadFaq() {
+    return (await import("./components/Faq.svelte")).default;
+  }
+  let FaqComponent = loadFaq();
 
   const sku = "BNE800BSSUK";
 
@@ -16,16 +22,15 @@
     headerTopEl,
     headerNavigationEl,
     headerNavigationElHeight,
-    windowWidth,
     desktopView,
     headerTopOffset = -100,
     stickyHidden = true,
     s_btn,
-    currentY = 0,
     machineSubscriptionData = getMachineSubscriptionData(),
     lastY = 0;
 
-  $: scrollDir = scrollDirection(currentY);
+  $: scrollY = 0;
+  $: scrollDir = scrollDirection(scrollY);
 
   async function getProduct(sku) {
     let item;
@@ -77,22 +82,22 @@
   };
 
   const updateStickyVisibility = () => {
+    let _header = headerTopEl ? headerTopEl : mainHeader;
+    console.log(_header);
     //Check the offset for the sticky position
-
     if (desktopView) {
       //Desktop sticky behaviour
       //Check if HeaderNavigationBar is visible in viewport
       headerTopOffset =
         getHeaderHeight(headerTopEl) + headerTopEl.getBoundingClientRect().top;
-      console.log(currentY);
       let headerHidden = visibleEl(
         headerNavigationEl,
         headerTopOffset - headerNavigationElHeight
       );
-      stickyHidden = currentY === 0 ? true : headerHidden;
+      stickyHidden = scrollY === 0 ? true : headerHidden;
       //if (stickyHidden !== stickyHiddenTemp) stickyHidden = stickyHiddenTemp;
     } else {
-      headerTopOffset = getHeaderHeight(mainHeader);
+      headerTopOffset = getHeaderHeight(_header);
       stickyHidden = visibleEl(s_btn, headerTopOffset);
       updateMainHeaderVisibility();
       //Mobile sticky behaviour
@@ -122,21 +127,24 @@
     }
   };
   const handleResize = (e) => {
-    viewportWidth.update((existing) => windowWidth);
-    desktopView = windowWidth > 767;
+    viewportWidth.update((existing) => window.outerWidth);
+    desktopView = window.outerWidth > 767;
     updateStickyVisibility();
   };
 
   onMount(() => {
-    s_btn = main.querySelector("#Hero__AddToBagButton");
     mainHeader = document.getElementById("top");
     headerTopEl = document.querySelector(".Header__top-wrapper");
     headerNavigationEl = document.querySelector(".HeaderNavigationBar");
     headerNavigationElHeight = headerNavigationEl.getBoundingClientRect()
       .height;
     headerTopEl.classList.add("loaded");
-    desktopView = windowWidth > 767;
-    viewportWidth.set(windowWidth);
+    desktopView = window.outerWidth > 767;
+    viewportWidth.set(window.outerWidth);
+    setTimeout(function () {
+      s_btn = document.getElementById("Hero__AddToBagButton");
+      updateStickyVisibility();
+    }, 100);
   });
 </script>
 
@@ -201,13 +209,26 @@
     #stickyButton {
       transition: transform 0.25s ease-out;
     }
+    :global(#top) {
+      :global(.HeaderNavigationBar__switch),
+      :global(.Header__top-wrapper.loaded) {
+        transition: none;
+        transform: none;
+      }
+
+      &.hid {
+        :global(.HeaderNavigationBar__switch),
+        :global(.Header__top-wrapper.loaded) {
+          transform: none;
+        }
+      }
+    }
   }
 </style>
 
 <svelte:window
-  bind:outerWidth={windowWidth}
+  bind:scrollY
   on:scroll={throttle(scrollHandler, 300)}
-  bind:scrollY={currentY}
   on:resize={handleResize} />
 
 <div
@@ -225,5 +246,8 @@
   {#await machineSubscriptionData then value}
     <Offer data={value} />
   {/await}
-  <Faq />
+  {#await FaqComponent then value}
+    <svelte:component this={value} />
+  {/await}
+  <!-- <Faq /> -->
 </main>
