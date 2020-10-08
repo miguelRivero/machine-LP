@@ -1,30 +1,44 @@
 <script>
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import Button from "./Button.svelte";
   import Arrow from "./Arrow.svelte";
   import Slider from "./SliderSwipe.svelte";
   import getSymbolFromCurrency from "currency-symbol-map";
-  import { desktopView } from "../store.js";
+  import { desktopView, cartHasSKU } from "../store.js";
 
   export let data = {},
     desktop,
-    buttonText = "SUBSCRIBE";
+    addingToCart,
+    //buttonText = "SUBSCRIBE",
+    skuInCart;
 
-  const unsubscribe = desktopView.subscribe((value) => (desktop = value));
-  onDestroy(unsubscribe);
+  const unsubscribeDesktop = desktopView.subscribe(
+    (value) => (desktop = value)
+  );
+  const unsubscribeCartHasSKU = cartHasSKU.subscribe(
+    (value) => (skuInCart = value)
+  );
+  onDestroy(unsubscribeDesktop, unsubscribeCartHasSKU);
 
   const clickHandler = (e) => {
     e.preventDefault();
+    addingToCart = true;
     window.CartManager.addSubscription(data.plan.id, data.machine.legacyId)
       .then(() => {
-        buttonText = "ADDED";
+        addingToCart = false;
       })
       .catch(() => {
+        addingToCart = false;
         console.log("Error adding the subscription");
       });
   };
 
   const currSymbol = getSymbolFromCurrency(data.machine.currency);
+
+  onMount(() => {
+    console.log("OFFER skuInCart = " + skuInCart);
+    //buttonText = skuInCart ? "ADDED" : "SUBSCRIBE";
+  });
 </script>
 
 <style type="text/scss" global>
@@ -224,9 +238,10 @@
                 {currSymbol}{data.machine.price}
               </p>
             </div>
-            <div class="perfectMatch__cta">
+            <div class="perfectMatch__cta" class:disabled={addingToCart}>
               <Button
-                text={buttonText}
+                disabled={addingToCart}
+                text={skuInCart ? 'ADDED' : 'SUBSCRIBE'}
                 hiddenText=""
                 iconPlus={true}
                 iconBasket={false}

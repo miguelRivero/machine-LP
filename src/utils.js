@@ -1,4 +1,4 @@
-function checkNapiAvailable() {
+export function checkNapiAvailable() {
   if (!window.napi) {
     return new Promise((resolve, reject) => {
       reject(new Error("napi not available")).then(
@@ -11,6 +11,23 @@ function checkNapiAvailable() {
   } else {
     return true;
   }
+}
+
+export function fetchCart() {
+  return checkNapiAvailable() && napi.cart().read();
+}
+
+export function watchCart(callback) {
+  console.log("watch");
+  try {
+    return napi.data().on("cart.update", callback);
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function getCartData() {
+  return window.napi.cart().read();
 }
 
 export function visibleEl(el, offset) {

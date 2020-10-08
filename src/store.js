@@ -1,6 +1,7 @@
 import { derived, writable } from "svelte/store";
 
 export const viewportWidth = writable(0);
+export const cartHasSKU = writable(0);
 export const desktopView = derived(viewportWidth, ($viewportWidth) => {
   return $viewportWidth > 767;
 });

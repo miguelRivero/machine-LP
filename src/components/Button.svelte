@@ -3,6 +3,7 @@
 
   export let text = "";
   export let hiddenText = "";
+  export let disabled = false;
   export let iconPlus = false;
   export let iconBasket = false;
   export let link = "";
@@ -34,6 +35,10 @@
     text-align: center;
     border-radius: 3px;
     transition: all 0.3s;
+    &.disabled {
+      pointer-events: none;
+      opacity: 0.6;
+    }
     &:not(:disabled) {
       box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.3);
     }
@@ -62,6 +67,7 @@
 <div class="AddToBagButton__container">
   <a id="AddToBagButton__button-CremaComponentId-1" href={link || undefined}>
     <button
+      class:disabled
       on:click={triggerEvent}
       id="ta-product-details__add-to-bag-button"
       class="AddToBagButton AddToBagButtonLarge"

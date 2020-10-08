@@ -5,8 +5,14 @@
   import Faq from "./components/Faq.svelte";
   import Offer from "./components/Offer.svelte";
   import StickyButton from "./components/StickyButton.svelte";
-  import { getProductData, getSubscriptionData, visibleEl } from "./utils.js";
-  import { viewportWidth } from "./store.js";
+  import {
+    fetchCart,
+    getProductData,
+    getSubscriptionData,
+    visibleEl,
+    watchCart,
+  } from "./utils.js";
+  import { viewportWidth, cartHasSKU } from "./store.js";
   import throttle from "just-throttle";
 
   //AMD SPLIT MODE
@@ -27,6 +33,7 @@
     stickyHidden = true,
     s_btn,
     machineSubscriptionData = getMachineSubscriptionData(),
+    product,
     lastY = 0;
 
   $: scrollY = 0;
@@ -61,6 +68,7 @@
       plan: s,
     };
   }
+
   const getHeaderHeight = (el) => {
     let header_h = el.getBoundingClientRect().height,
       banner = false, //document.querySelector("#topDelBan"),
@@ -78,12 +86,10 @@
   const scrollHandler = (e) => {
     //Check if scroll is up or down
     updateStickyVisibility();
-    //    updateMainHeaderVisibility(scrollDir, mainHeader);
   };
 
   const updateStickyVisibility = () => {
     let _header = headerTopEl ? headerTopEl : mainHeader;
-    console.log(_header);
     //Check the offset for the sticky position
     if (desktopView) {
       //Desktop sticky behaviour
@@ -95,13 +101,10 @@
         headerTopOffset - headerNavigationElHeight
       );
       stickyHidden = scrollY === 0 ? true : headerHidden;
-      //if (stickyHidden !== stickyHiddenTemp) stickyHidden = stickyHiddenTemp;
     } else {
       headerTopOffset = getHeaderHeight(_header);
       stickyHidden = visibleEl(s_btn, headerTopOffset);
       updateMainHeaderVisibility();
-      //Mobile sticky behaviour
-      //Check if button of reference inside page is visible in viewport
     }
   };
 
@@ -132,7 +135,7 @@
     updateStickyVisibility();
   };
 
-  onMount(() => {
+  onMount(async () => {
     mainHeader = document.getElementById("top");
     headerTopEl = document.querySelector(".Header__top-wrapper");
     headerNavigationEl = document.querySelector(".HeaderNavigationBar");
@@ -141,11 +144,26 @@
     headerTopEl.classList.add("loaded");
     desktopView = window.outerWidth > 767;
     viewportWidth.set(window.outerWidth);
+    product = await getProduct(sku);
+    onCartUpdate();
     setTimeout(function () {
       s_btn = document.getElementById("Hero__AddToBagButton");
       updateStickyVisibility();
     }, 100);
   });
+
+  // Updating the Subscribe btn with cart
+  watchCart(onCartUpdate);
+  async function onCartUpdate() {
+    const cart = await fetchCart();
+    const incart = skuInCart(cart);
+    console.log("incart = " + incart);
+    cartHasSKU.update((existing) => incart);
+  }
+  function skuInCart(arr) {
+    if (!arr.length) return false;
+    return arr.some((item) => item.productId === product.id);
+  }
 </script>
 
 <style type="text/scss">
@@ -229,7 +247,6 @@
   bind:scrollY
   on:scroll={throttle(scrollHandler, 300)}
   on:resize={handleResize} />
-
 <div
   id="stickyButton"
   class:hid={stickyHidden}
