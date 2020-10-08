@@ -2,7 +2,7 @@
   import { onMount } from "svelte";
   import Hero from "./components/Hero.svelte";
   import Points from "./components/Points.svelte";
-  //import Faq from "./components/Faq.svelte";
+  import Faq from "./components/Faq.svelte";
   import Offer from "./components/Offer.svelte";
   import StickyButton from "./components/StickyButton.svelte";
   import { getProductData, getSubscriptionData, visibleEl } from "./utils.js";
@@ -10,10 +10,10 @@
   import throttle from "just-throttle";
 
   //AMD SPLIT MODE
-  async function loadFaq() {
-    return (await import("./components/Faq.svelte")).default;
-  }
-  let FaqComponent = loadFaq();
+  // async function loadFaq() {
+  //   return (await import("./components/Faq.svelte")).default;
+  // }
+  // let FaqComponent = loadFaq();
 
   const sku = "BNE800BSSUK";
 
@@ -156,7 +156,8 @@
     text-align: center;
     padding: 0;
     margin: 0 auto;
-    font-family: "NespressoLucas-normal", Arial, Helvetica, sans-serif !important;
+    font-family: "NespressoLucas", Helvetica, Arial, sans-serif;
+    font-weight: 400;
   }
 
   :global(.restrict) {
@@ -171,20 +172,18 @@
   :global(.topDelBan) {
     z-index: 90;
   }
-  :global(#top) {
-    :global(.HeaderNavigationBar__switch),
-    :global(.Header__top-wrapper.loaded) {
-      transition: transform 0.15s ease-out;
-      transform: translateY(0px);
-    }
 
-    &.hid {
-      :global(.HeaderNavigationBar__switch),
-      :global(.Header__top-wrapper.loaded) {
-        transform: translateY(-55px);
-      }
-    }
+  :global(#top .HeaderNavigationBar__switch),
+  :global(#top .Header__top-wrapper.loaded) {
+    transition: transform 0.15s ease-out;
+    transform: translateY(0px);
   }
+
+  :global(#top.hid .HeaderNavigationBar__switch),
+  :global(#top.hid .Header__top-wrapper.loaded) {
+    transform: translateY(-55px);
+  }
+
   #stickyButton {
     position: fixed;
     top: 0;
@@ -246,8 +245,8 @@
   {#await machineSubscriptionData then value}
     <Offer data={value} />
   {/await}
-  {#await FaqComponent then value}
+  <!-- {#await FaqComponent then value}
     <svelte:component this={value} />
-  {/await}
-  <!-- <Faq /> -->
+  {/await} -->
+  <Faq />
 </main>

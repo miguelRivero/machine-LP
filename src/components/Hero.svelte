@@ -6,7 +6,7 @@
   const dispatch = createEventDispatcher();
 
   const clickHandler = (e) => {
-    console.log("clicked");
+    //console.log("clicked");
   };
 </script>
 
@@ -32,7 +32,8 @@
   }
   .subscriptionHero__slogan {
     color: white;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-weight: normal;
     font-size: 1.125rem;
     letter-spacing: 1.5px;
@@ -55,7 +56,8 @@
     display: table;
     list-style: none;
     text-align: left;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 1.125rem;
     font-weight: normal;
     letter-spacing: 1px;
@@ -143,6 +145,7 @@
         <Button
           text="SEE ALL MACHINES"
           hiddenText=""
+          link="/uk/en/order/machines/original"
           iconPlus={false}
           iconBasket={false}
           on:buttonClick={clickHandler} />

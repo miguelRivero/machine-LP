@@ -1,23 +1,41 @@
-@import "variables";
+@font-face {
+  font-family: "NespressoLucas";
+  src: url("/shared_res/agility/commons/fonts/NespressoLucas-Light.woff");
+  font-weight: 300;
+  font-style: normal;
+}
 
 @font-face {
-  font-family: "NespressoLucas-light";
-  //src: url("../fonts/NespressoLucas-Light.otf") format("opentype");
-  src: url(#{$fontNespressoUrl}/NespressoLucas-Light.woff) format("woff");
-  font-weight: normal;
+  font-family: "NespressoLucas";
+  src: url("/shared_res/agility/commons/fonts/NespressoLucas-Regular.woff");
+  font-weight: 400;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "NespressoLucas-normal";
-  //src: url("../fonts/NespressoLucas-Med.otf") format("opentype");
-  src: url(#{$fontNespressoUrl}/NespressoLucas-Medium.woff) format("woff");
-  font-weight: normal;
+  font-family: "NespressoLucas";
+  src: url("/shared_res/agility/commons/fonts/NespressoLucas-Med.woff");
+  font-weight: 500;
   font-style: normal;
 }
+
 @font-face {
-  font-family: "NespressoLucas-bold";
-  //src: url("../fonts/NespressoLucas-Bold.otf") format("opentype");
-  src: url(#{$fontNespressoUrl}/NespressoLucas-Bold.woff) format("woff");
-  font-weight: normal;
+  font-family: "NespressoLucas";
+  src: url("/shared_res/agility/commons/fonts/NespressoLucas-SemiBd.woff");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NespressoLucas";
+  src: url("/shared_res/agility/commons/fonts/NespressoLucas-Bold.woff");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "NespressoLucas";
+  src: url("/shared_res/agility/commons/fonts/NespressoLucas-XtraBd.woff");
+  font-weight: 900;
   font-style: normal;
 }

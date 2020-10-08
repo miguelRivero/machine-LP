@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy, tick } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   import { Swipe, SwipeItem } from "svelte-swipe"; // gzipped 3.37 KB
   import { desktopView } from "../store.js";
 

@@ -42,13 +42,15 @@
     padding-top: 0.75rem;
     p {
       color: #8d1f3c;
-      font-family: $lucasBold;
+      font-family: NespressoLucas !important;
+      font-weight: 700;
       font-size: 1rem;
     }
   }
   .subscriptionHero__pointText p {
     color: #000000;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 1.125rem;
   }
   @include mq("tablet") {

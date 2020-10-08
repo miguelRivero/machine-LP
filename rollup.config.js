@@ -8,6 +8,7 @@ import { terser } from "rollup-plugin-terser";
 import preprocess from "svelte-preprocess";
 import postcss from "rollup-plugin-postcss";
 import del from "rollup-plugin-delete";
+import entrypointHashmanifest from "rollup-plugin-entrypoint-hashmanifest";
 
 //import bundleSize from "rollup-plugin-bundle-size";
 
@@ -19,7 +20,7 @@ let svelteConfig, buildType;
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
 
-buildType = getBuildType("amd");
+buildType = getBuildType();
 function getBuildType(type) {
   if (type === "amd") {
     return {
@@ -28,12 +29,23 @@ function getBuildType(type) {
       dir: "public/build/amd",
       chunkFileNames: "[name].js",
     };
+  } else if (type === "iife-p") {
+    return {
+      sourcemap: true,
+      format: "iife",
+      name: "app",
+      dir: "public/build/iife",
+      entryFileNames: "[name]-[hash].js",
+      chunkFileNames: "[name]-[hash].js",
+    };
   } else {
     return {
       sourcemap: true,
       format: "iife",
       name: "app",
-      file: "public/build/iife/bundle.js",
+      dir: "public/build/iife",
+      entryFileNames: "[name].js",
+      chunkFileNames: "[name].js",
     };
   }
 }
@@ -149,6 +161,7 @@ export default {
     //production && terser({ output: { comments: false } })
     //bundleSize(),
     del({ targets: "public/build/*" }),
+    entrypointHashmanifest(),
   ],
   watch: {
     clearScreen: false,

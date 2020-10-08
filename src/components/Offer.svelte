@@ -1,12 +1,27 @@
 <script>
+  import { onDestroy } from "svelte";
   import Button from "./Button.svelte";
   import Arrow from "./Arrow.svelte";
   import Slider from "./SliderSwipe.svelte";
   import getSymbolFromCurrency from "currency-symbol-map";
+  import { desktopView } from "../store.js";
 
-  export let data = {};
+  export let data = {},
+    desktop,
+    buttonText = "SUBSCRIBE";
+
+  const unsubscribe = desktopView.subscribe((value) => (desktop = value));
+  onDestroy(unsubscribe);
+
   const clickHandler = (e) => {
-    console.log("clicked");
+    e.preventDefault();
+    window.CartManager.addSubscription(data.plan.id, data.machine.legacyId)
+      .then(() => {
+        buttonText = "ADDED";
+      })
+      .catch(() => {
+        console.log("Error adding the subscription");
+      });
   };
 
   const currSymbol = getSymbolFromCurrency(data.machine.currency);
@@ -20,7 +35,8 @@
   .perfectMatch__title {
     margin: 0;
     color: black;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 1.875rem;
     font-weight: 300;
     letter-spacing: 0.375rem;
@@ -36,7 +52,8 @@
   }
   .perfectMatch__name {
     color: #000000;
-    font-family: $lucasBold;
+    font-family: NespressoLucas !important;
+    font-weight: 700;
     font-size: 1.125rem;
     letter-spacing: 3px;
     line-height: 1.5rem;
@@ -47,7 +64,8 @@
   }
   .perfectMatch__description {
     color: #000000;
-    font-family: $lucasNormal;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 0.875rem;
     letter-spacing: 1px;
     line-height: 1.3125rem;
@@ -62,13 +80,15 @@
   }
   .perfectMatch__price {
     color: #000000;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 1rem;
     letter-spacing: 1px;
     line-height: 1.5rem;
     span {
       color: $greenColor;
-      font-family: $lucasBold;
+      font-family: NespressoLucas !important;
+      font-weight: 700;
       font-size: 18px;
       letter-spacing: 3px;
     }
@@ -84,7 +104,8 @@
     margin-top: 0.75rem;
     a {
       color: $brownColor;
-      font-family: $lucasBold;
+      font-family: NespressoLucas !important;
+      font-weight: 700;
       font-size: 1.125rem;
       letter-spacing: 1px;
       line-height: 1.5rem;
@@ -92,7 +113,8 @@
   }
   .perfectMatch__price__original {
     color: #666666;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 0.875rem;
     letter-spacing: 1px;
     line-height: 1.3125rem;
@@ -118,8 +140,8 @@
       padding: 1.75rem 2rem;
       top: 50%;
       transform: translateY(-50%);
-      right: 0;
-      width: 50%;
+      left: 50%;
+      max-width: 569px;
       text-align: left;
     }
     .perfectMatch__name {
@@ -195,7 +217,7 @@
               <p>
                 <span>{currSymbol}{data.plan.promotionalPrice.toFixed(2)}</span>+
                 {currSymbol}{data.plan.periodicFee.toFixed(2)}
-                / month
+                / MONTH
               </p>
               <p class="perfectMatch__price__original">
                 instead of
@@ -204,13 +226,14 @@
             </div>
             <div class="perfectMatch__cta">
               <Button
-                text="SUBSCRIBE"
+                text={buttonText}
                 hiddenText=""
                 iconPlus={true}
                 iconBasket={false}
                 on:buttonClick={clickHandler} />
               <div class="perfectMatch__moreAbout">
-                <a href={data.machine.pdpURLs.desktop}>
+                <a
+                  href={desktop ? data.machine.pdpURLs.desktop : data.machine.pdpURLs.mobile}>
                   <span>More about this machine</span>
                   <Arrow type="right" color="brown" />
                 </a>

@@ -98,7 +98,8 @@
     text-align: left;
     h2 {
       color: #ffffff;
-      font-family: $lucasLight;
+      font-family: NespressoLucas !important;
+      font-weight: 300;
       font-size: 1.875rem;
       font-weight: 300;
       letter-spacing: 0.375rem;
@@ -135,7 +136,8 @@
     background-color: transparent;
     border-top: none;
     padding: 1rem 1rem 1rem 2.5rem;
-    font-family: $lucasBold;
+    font-family: NespressoLucas !important;
+    font-weight: 700;
     font-size: 1rem;
     letter-spacing: 1px;
     line-height: 1.5rem;
@@ -174,7 +176,8 @@
     background-color: transparent;
   }
   .handorgel__content__inner {
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 1rem;
     letter-spacing: 1px;
     line-height: 1.5rem;
@@ -194,6 +197,9 @@
   @include mq("tablet") {
     .handorgel {
       padding-left: 16px;
+    }
+    .handorgel__content__inner {
+      width: 74%;
     }
   }
 </style>

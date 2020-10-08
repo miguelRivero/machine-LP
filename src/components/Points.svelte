@@ -32,7 +32,8 @@
   }
   h3 {
     color: #000000;
-    font-family: $lucasLight;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
     font-size: 1.875rem;
     letter-spacing: 0.375rem;
     line-height: 2.5rem;

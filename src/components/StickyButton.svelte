@@ -33,6 +33,7 @@
 <section class="AddToBagButton--sticky">
   <Button
     text="SEE ALL MACHINES"
+    link="/uk/en/order/machines/original"
     hiddenText=""
     iconPlus={false}
     iconBasket={false}

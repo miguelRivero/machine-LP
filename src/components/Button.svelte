@@ -41,7 +41,8 @@
   .AddToBagButtonLarge__label {
     width: 100%;
     text-align: center;
-    font-family: $lucasBold;
+    font-family: NespressoLucas !important;
+    font-weight: 700;
     @include truncate(unset);
   }
   .AddToBagButtonLarge__plusIcon {
@@ -59,7 +60,7 @@
 </style>
 
 <div class="AddToBagButton__container">
-  <a id="AddToBagButton__button-CremaComponentId-1" href={link}>
+  <a id="AddToBagButton__button-CremaComponentId-1" href={link || undefined}>
     <button
       on:click={triggerEvent}
       id="ta-product-details__add-to-bag-button"
