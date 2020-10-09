@@ -1,5 +1,5 @@
 <script>
-  import { onMount, onDestroy } from "svelte";
+  import { onDestroy } from "svelte";
   import Button from "./Button.svelte";
   import Arrow from "./Arrow.svelte";
   import Slider from "./SliderSwipe.svelte";
@@ -34,11 +34,6 @@
   };
 
   const currSymbol = getSymbolFromCurrency(data.machine.currency);
-
-  onMount(() => {
-    console.log("OFFER skuInCart = " + skuInCart);
-    //buttonText = skuInCart ? "ADDED" : "SUBSCRIBE";
-  });
 </script>
 
 <style type="text/scss" global>
@@ -139,11 +134,9 @@
   }
   @include mq("tablet") {
     .perfectMatch__container {
-      background: linear-gradient(to bottom, #f6f4f2 71%, white 0);
+      background: linear-gradient(to bottom, #f6f4f2 66.5%, white 0);
     }
-    // .perfectMatch__title {
-    //   margin-bottom: 64px;
-    // }
+
     .perfectMatch__machine {
       position: relative;
     }
@@ -196,6 +189,9 @@
       margin-top: 1rem;
     }
     @include mq("tablet-wide") {
+      .perfectMatch__container {
+        background: linear-gradient(to bottom, #f6f4f2 66%, white 0);
+      }
       .perfectMatch__priceCta {
         display: flex;
         justify-content: space-between;
@@ -204,6 +200,16 @@
         margin-left: 2rem;
         margin-top: 0;
         min-width: 14.5rem;
+      }
+    }
+    @include mq("desktop") {
+      .perfectMatch__container {
+        background: linear-gradient(to bottom, #f6f4f2 65.8%, white 0);
+      }
+    }
+    @include mq("desktop-wide") {
+      .perfectMatch__container {
+        background: linear-gradient(to bottom, #f6f4f2 65.7%, white 0);
       }
     }
   }

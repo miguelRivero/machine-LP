@@ -5,9 +5,11 @@ import resolve from "@rollup/plugin-node-resolve";
 import commonjs from "@rollup/plugin-commonjs";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
+import alias from "rollup-plugin-alias";
 import preprocess from "svelte-preprocess";
 import postcss from "rollup-plugin-postcss";
 import del from "rollup-plugin-delete";
+import visualizer from "rollup-plugin-visualizer";
 import entrypointHashmanifest from "rollup-plugin-entrypoint-hashmanifest";
 
 //import bundleSize from "rollup-plugin-bundle-size";
@@ -20,7 +22,7 @@ let svelteConfig, buildType;
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
 
-buildType = getBuildType();
+buildType = getBuildType("iife-p");
 function getBuildType(type) {
   if (type === "amd") {
     return {
@@ -128,10 +130,7 @@ export default {
           },
         ],
       ],
-      plugins: [
-        /*'@babel/plugin-transform-runtime'*/
-        "transform-async-to-promises",
-      ],
+      plugins: ["transform-async-to-promises"],
     }),
     postcss({
       modules: true,
@@ -162,6 +161,12 @@ export default {
     //bundleSize(),
     del({ targets: "public/build/*" }),
     entrypointHashmanifest(),
+    alias({
+      entries: {
+        "api-client": "src/api/index.js",
+      },
+    }),
+    visualizer(),
   ],
   watch: {
     clearScreen: false,

@@ -1,13 +1,24 @@
 <script>
+  import { onMount, tick } from "svelte";
+  import { fade, fly } from "svelte/transition";
+  import { sineInOut } from "svelte/easing";
   import { imagesGitStorage } from "../store.js";
   import Button from "./Button.svelte";
-  import { createEventDispatcher } from "svelte";
 
-  const dispatch = createEventDispatcher();
+  let heroElement,
+    visible = false;
 
-  const clickHandler = (e) => {
-    //console.log("clicked");
-  };
+  onMount(async () => {
+    await tick();
+    visible = true;
+  });
+  // import { createEventDispatcher } from "svelte";
+
+  // const dispatch = createEventDispatcher();
+
+  // const clickHandler = (e) => {
+  //   console.log("clicked");
+  // };
 </script>
 
 <style type="text/scss">
@@ -20,12 +31,29 @@
   // custom styles
   .subscriptionHero {
     padding: 2.25rem 2.5rem;
-    background-image: url(#{$assetsUrl}backgrounds/earth_L.jpg);
-    background-color: #851d34;
-    background-position: top;
-    background-repeat: no-repeat;
-    background-size: cover;
+    position: relative;
     color: white;
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      background-image: url(#{$assetsUrl}backgrounds/earth_L.jpg);
+      background-color: #851d34;
+      background-size: cover;
+      opacity: 0;
+      transition: opacity 1s;
+    }
+    &.mounted {
+      &:before {
+        opacity: 1;
+      }
+    }
   }
   .subscriptionHero__logo {
     width: 14.25rem;
@@ -110,46 +138,64 @@
   }
 </style>
 
-<section
-  id="hero"
-  data-label="Subscription by Nespresso"
-  class="subscriptionHero">
-  <img
-    class="subscriptionHero__logo"
-    aria-hidden="true"
-    src="{imagesGitStorage}/logo_subscription.svg"
-    alt="Subscription by Nespresso" />
-  <h2 class="subscriptionHero__slogan subscriptionHero__slogan--m">
-    Never run out of coffee
-  </h2>
-  <div class="subscriptionHero__content">
+{#if visible}
+  <section
+    bind:this={heroElement}
+    id="hero"
+    in:fade={{ delay: 0, duration: 500, easing: sineInOut }}
+    data-label="Subscription by Nespresso"
+    class="subscriptionHero"
+    class:mounted={visible}>
     <img
-      class="subscriptionHero__machine"
-      src="{imagesGitStorage}/machine.png"
-      alt="Coffee Machine Set" />
-    <div class="subscriptionHero__offer">
-      <h2 class="subscriptionHero__slogan subscriptionHero__slogan--d">
-        Never run out of coffee
-      </h2>
+      in:fade={{ delay: 500, duration: 500, easing: sineInOut }}
+      class="subscriptionHero__logo"
+      aria-hidden="true"
+      src="{imagesGitStorage}/logo_subscription.svg"
+      alt="Subscription by Nespresso" />
 
-      <ul class="subscriptionHero__points">
-        <li>Your machine for <strong>$1</strong></li>
-        <li>
-          <strong>Monthly credit</strong>
-          to spend on all coffees and accesories
-        </li>
-        <li><strong>Unlimited</strong> free deliveries</li>
-      </ul>
+    <h2 class="subscriptionHero__slogan subscriptionHero__slogan--m">
+      Never run out of coffee
+    </h2>
+    <div class="subscriptionHero__content">
+      <img
+        in:fly={{ delay: 800, x: -100, duration: 1500, easing: sineInOut }}
+        class="subscriptionHero__machine"
+        src="{imagesGitStorage}/machine.png"
+        alt="Coffee Machine Set" />
+      <div class="subscriptionHero__offer">
+        <h2
+          in:fade={{ delay: 800, duration: 300, easing: sineInOut }}
+          class="subscriptionHero__slogan subscriptionHero__slogan--d">
+          Never run out of coffee
+        </h2>
 
-      <div id="Hero__AddToBagButton">
-        <Button
-          text="SEE ALL MACHINES"
-          hiddenText=""
-          link="/uk/en/order/machines/original"
-          iconPlus={false}
-          iconBasket={false}
-          on:buttonClick={clickHandler} />
+        <ul class="subscriptionHero__points">
+          <li in:fade={{ delay: 1000, duration: 300, easing: sineInOut }}>
+            Your machine for
+            <strong>$1</strong>
+          </li>
+          <li in:fade={{ delay: 1300, duration: 300, easing: sineInOut }}>
+            <strong>Monthly credit</strong>
+            to spend on all coffees and accesories
+          </li>
+          <li in:fade={{ delay: 1600, duration: 300, easing: sineInOut }}>
+            <strong>Unlimited</strong>
+            free deliveries
+          </li>
+        </ul>
+
+        <div
+          in:fade={{ delay: 1800, duration: 1000, easing: sineInOut }}
+          id="Hero__AddToBagButton">
+          <Button
+            text="SEE ALL MACHINES"
+            hiddenText=""
+            link="/uk/en/order/machines/original"
+            iconPlus={false}
+            iconBasket={false} />
+          <!-- on:buttonClick={clickHandler} -->
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+{/if}
