@@ -13,15 +13,23 @@ const hideElements = (arr) => {
     if (smartbanner) smartbanner.style.display = "none";
   }
 };
+const mainEl = document.querySelector("main");
+const speed = 500;
+const seconds = speed / 1000;
+mainEl.style.opacity = 1;
+main.style.transition = "opacity " + seconds + "s ease-out";
 //hideElements(toHide);
 
-//Promise.resolve();
 const tampermonkey = true;
 
 const replaceContainer = function (Component, options) {
+  let component;
   const frag = document.createDocumentFragment();
-  const component = new Component(Object.assign({}, options, { target: frag }));
-  options.target.parentNode.replaceChild(frag, options.target);
+  options.target.style.opacity = 0;
+  setTimeout(function () {
+    component = new Component(Object.assign({}, options, { target: frag }));
+    options.target.parentNode.replaceChild(frag, options.target);
+  }, speed);
 
   return component;
 };
@@ -29,7 +37,7 @@ const replaceContainer = function (Component, options) {
 //Replacing existing main with our content
 const app = tampermonkey
   ? replaceContainer(App, {
-      target: document.querySelector("main"),
+      target: mainEl,
     })
   : new App({
       target: document.body,

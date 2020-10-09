@@ -1,17 +1,23 @@
 <script>
-  import { onMount, tick } from "svelte";
+  import { onMount, onDestroy, tick } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { sineInOut } from "svelte/easing";
-  import { imagesGitStorage } from "../store.js";
+  import { desktopView, imagesGitStorage } from "../store.js";
   import Button from "./Button.svelte";
+  const unsubscribeDesktop = desktopView.subscribe(
+    (value) => (desktop = value)
+  );
 
   let heroElement,
+    desktop,
     visible = false;
 
   onMount(async () => {
     await tick();
     visible = true;
   });
+  onDestroy(unsubscribeDesktop);
+
   // import { createEventDispatcher } from "svelte";
 
   // const dispatch = createEventDispatcher();
@@ -158,7 +164,7 @@
     </h2>
     <div class="subscriptionHero__content">
       <img
-        in:fly={{ delay: 800, x: -100, duration: 1500, easing: sineInOut }}
+        in:fly={{ delay: 800, x: desktop ? -100 : 0, duration: 1500, easing: sineInOut }}
         class="subscriptionHero__machine"
         src="{imagesGitStorage}/machine.png"
         alt="Coffee Machine Set" />

@@ -158,7 +158,6 @@
   async function onCartUpdate() {
     const cart = await fetchCart();
     const incart = skuInCart(cart);
-    console.log("incart = " + incart);
     cartHasSKU.update((existing) => incart);
   }
   function skuInCart(arr) {
