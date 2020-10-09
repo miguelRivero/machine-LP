@@ -34,7 +34,8 @@
     s_btn,
     machineSubscriptionData = getMachineSubscriptionData(),
     product,
-    lastY = 0;
+    lastY = 0,
+    sliderVersion = false;
 
   $: scrollY = 0;
   $: scrollDir = scrollDirection(scrollY);
@@ -259,9 +260,11 @@
 <main bind:this={main}>
   <Hero />
   <Points />
-  {#await machineSubscriptionData then value}
-    <Offer data={value} />
-  {/await}
+  {#if sliderVersion}
+    {#await machineSubscriptionData then value}
+      <Offer data={value} />
+    {/await}
+  {/if}
   <!-- {#await FaqComponent then value}
     <svelte:component this={value} />
   {/await} -->
