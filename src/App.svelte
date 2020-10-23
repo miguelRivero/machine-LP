@@ -37,8 +37,8 @@
     lastY = 0,
     sliderVersion = false;
 
-  $: scrollY = 0;
-  $: scrollDir = scrollDirection(scrollY);
+  //$: scrollY = 0;
+  //$: scrollDir = scrollDirection(scrollY);
 
   async function getProduct(sku) {
     let item;
@@ -84,56 +84,57 @@
     return off;
   };
 
-  const scrollHandler = (e) => {
-    //Check if scroll is up or down
-    updateStickyVisibility();
-  };
+  // const scrollHandler = (e) => {
+  //   //Check if scroll is up or down
+  //   updateStickyVisibility();
+  // };
 
-  const updateStickyVisibility = () => {
-    let _header = headerTopEl ? headerTopEl : mainHeader;
-    //Check the offset for the sticky position
-    if (desktopView) {
-      //Desktop sticky behaviour
-      //Check if HeaderNavigationBar is visible in viewport
-      headerTopOffset =
-        getHeaderHeight(headerTopEl) + headerTopEl.getBoundingClientRect().top;
-      let headerHidden = visibleEl(
-        headerNavigationEl,
-        headerTopOffset - headerNavigationElHeight
-      );
-      stickyHidden = scrollY === 0 ? true : headerHidden;
-    } else {
-      headerTopOffset = getHeaderHeight(_header);
-      stickyHidden = visibleEl(s_btn, headerTopOffset);
-      updateMainHeaderVisibility();
-    }
-  };
+  // const updateStickyVisibility = () => {
+  //   let _header = headerTopEl ? headerTopEl : mainHeader;
+  //   //Check the offset for the sticky position
+  //   if (desktopView) {
+  //     //Desktop sticky behaviour
+  //     //Check if HeaderNavigationBar is visible in viewport
+  //     headerTopOffset =
+  //       getHeaderHeight(headerTopEl) + headerTopEl.getBoundingClientRect().top;
+  //     let headerHidden = visibleEl(
+  //       headerNavigationEl,
+  //       headerTopOffset - headerNavigationElHeight
+  //     );
+  //     stickyHidden = scrollY === 0 ? true : headerHidden;
+  //   } else {
+  //     headerTopOffset = getHeaderHeight(_header);
+  //     stickyHidden = visibleEl(s_btn, headerTopOffset);
+  //     updateMainHeaderVisibility();
+  //   }
+  // };
 
-  const scrollDirection = (y) => {
-    const dy = lastY - y;
-    lastY = y;
-    if (dy < 0) {
-      return "down";
-    } else {
-      return "up";
-    }
-  };
+  // const scrollDirection = (y) => {
+  //   const dy = lastY - y;
+  //   lastY = y;
+  //   if (dy < 0) {
+  //     return "down";
+  //   } else {
+  //     return "up";
+  //   }
+  // };
 
-  const updateMainHeaderVisibility = (dir) => {
-    if (stickyHidden) {
-      mainHeader.classList.remove("hid");
-    } else {
-      if (scrollDir === "down") {
-        mainHeader.classList.add("hid");
-      } else {
-        mainHeader.classList.remove("hid");
-      }
-    }
-  };
+  // const updateMainHeaderVisibility = (dir) => {
+  //   if (stickyHidden) {
+  //     mainHeader.classList.remove("hid");
+  //   } else {
+  //     if (scrollDir === "down") {
+  //       mainHeader.classList.add("hid");
+  //     } else {
+  //       mainHeader.classList.remove("hid");
+  //     }
+  //   }
+  // };
+
   const handleResize = (e) => {
     viewportWidth.update((existing) => window.outerWidth);
     desktopView = window.outerWidth > 767;
-    updateStickyVisibility();
+    //updateStickyVisibility();
   };
 
   onMount(async () => {
@@ -149,7 +150,7 @@
     onCartUpdate();
     setTimeout(function () {
       s_btn = document.getElementById("Hero__AddToBagButton");
-      updateStickyVisibility();
+      //updateStickyVisibility();
     }, 100);
   });
 
@@ -202,20 +203,20 @@
     transform: translateY(-55px);
   }
 
-  #stickyButton {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 99;
-    transition: transform 0.25s ease-out 0.25s;
-    &.hid {
-      transform: translateY(-70px) !important;
-    }
-    &.visibletop {
-      //     transition: transform 0.15s ease-out;
-      transform: translateY(0px) !important;
-    }
-  }
+  // #stickyButton {
+  //   position: fixed;
+  //   top: 0;
+  //   width: 100%;
+  //   z-index: 99;
+  //   transition: transform 0.25s ease-out 0.25s;
+  //   &.hid {
+  //     transform: translateY(-70px) !important;
+  //   }
+  //   &.visibletop {
+  //     //     transition: transform 0.15s ease-out;
+  //     transform: translateY(0px) !important;
+  //   }
+  // }
 
   @include mq("tablet-small") {
     main {
@@ -223,9 +224,9 @@
     }
   }
   @include mq("tablet") {
-    #stickyButton {
-      transition: transform 0.25s ease-out;
-    }
+    // #stickyButton {
+    //   transition: transform 0.25s ease-out;
+    // }
     :global(#top) {
       :global(.HeaderNavigationBar__switch),
       :global(.Header__top-wrapper.loaded) {
@@ -243,18 +244,21 @@
   }
 </style>
 
-<svelte:window
+<svelte:window on:resize={handleResize} />
+
+<!-- <svelte:window
   bind:scrollY
   on:scroll={throttle(scrollHandler, 300)}
-  on:resize={handleResize} />
-<div
+  on:resize={handleResize} /> -->
+
+<!-- <div
   id="stickyButton"
   class:hid={stickyHidden}
   class:visibletop={!stickyHidden && scrollDir === 'down' && !desktopView}
   class:visibleoffset={(!stickyHidden && scrollDir === 'up') || (!stickyHidden && desktopView)}
   style="transform: translateY({headerTopOffset}px)">
   <StickyButton />
-</div>
+</div> -->
 
 <main bind:this={main}>
   <Hero />
