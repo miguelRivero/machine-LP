@@ -22,7 +22,7 @@ let svelteConfig, buildType;
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
 
-buildType = getBuildType("iife-p");
+buildType = getBuildType();
 function getBuildType(type) {
   if (type === "amd") {
     return {
