@@ -3,25 +3,29 @@
   import Hero from "./components/Hero.svelte";
   import Points from "./components/Points.svelte";
   import Faq from "./components/Faq.svelte";
-  import Offer from "./components/Offer.svelte";
+  import OfferMultiple from "./components/OfferMultiple.svelte";
+  // import Offer from "./components/Offer.svelte";
   import StickyButton from "./components/StickyButton.svelte";
   import {
     fetchCart,
     getProductData,
     getSubscriptionData,
+    getLang,
+    getMarket,
     visibleEl,
     watchCart,
   } from "./utils.js";
-  import { viewportWidth, cartHasSKU } from "./store.js";
+  import { market, lang, viewportWidth, cartHasSKU } from "./store.js";
   import throttle from "just-throttle";
 
   //AMD SPLIT MODE
   // async function loadFaq() {
   //   return (await import("./components/Faq.svelte")).default;
   // }
-  // let FaqComponent = loadFaq();
+  //let FaqComponent = loadFaq();
 
   const sku = "BNE800BSSUK";
+  const machines = ["BNE800BSSUK", "GCB2-GB-WH-NE1", "A3NKGCB2-GB-BK"];
 
   let main,
     mainHeader,
@@ -32,13 +36,16 @@
     headerTopOffset = -100,
     stickyHidden = true,
     s_btn,
-    machineSubscriptionData = getMachineSubscriptionData(),
+    machineSubscriptionData = getMachineSubscriptionData(machines),
     product,
     lastY = 0,
-    sliderVersion = false;
+    sliderVersion = true;
 
   //$: scrollY = 0;
   //$: scrollDir = scrollDirection(scrollY);
+  (async () => {
+    console.log(await machineSubscriptionData);
+  })();
 
   async function getProduct(sku) {
     let item;
@@ -61,13 +68,17 @@
     return item;
   }
 
-  async function getMachineSubscriptionData() {
-    const p = await getProduct(sku);
-    const s = await getSubscriptionPlan(sku);
-    return {
-      machine: p,
-      plan: s,
-    };
+  async function getMachineSubscriptionData(items) {
+    const itemsList = [];
+    for (const item of items) {
+      const p = await getProduct(item);
+      const s = await getSubscriptionPlan(item);
+      itemsList.push({
+        machine: p,
+        plan: s,
+      });
+    }
+    return itemsList;
   }
 
   const getHeaderHeight = (el) => {
@@ -145,7 +156,12 @@
       .height;
     headerTopEl.classList.add("loaded");
     desktopView = window.outerWidth > 767;
+
+    // Setting store variables
+    market.set(getMarket());
+    lang.set(getLang());
     viewportWidth.set(window.outerWidth);
+
     product = await getProduct(sku);
     onCartUpdate();
     setTimeout(function () {
@@ -155,10 +171,12 @@
   });
 
   // Updating the Subscribe btn with cart
-  watchCart(onCartUpdate);
+  //watchCart(onCartUpdate);
   async function onCartUpdate() {
     const cart = await fetchCart();
     const incart = skuInCart(cart);
+    // console.log(cart);
+    // console.log(incart);
     cartHasSKU.update((existing) => incart);
   }
   function skuInCart(arr) {
@@ -265,7 +283,7 @@
   <Points />
   {#if sliderVersion}
     {#await machineSubscriptionData then value}
-      <Offer data={value} />
+      <OfferMultiple data={value} />
     {/await}
   {/if}
   <!-- {#await FaqComponent then value}

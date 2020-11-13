@@ -22,7 +22,7 @@ let svelteConfig, buildType;
 const production = !process.env.ROLLUP_WATCH;
 const bundle = true;
 
-buildType = getBuildType();
+buildType = getBuildType("cjs");
 function getBuildType(type) {
   if (type === "amd") {
     return {
@@ -40,9 +40,16 @@ function getBuildType(type) {
       entryFileNames: "[name]-[hash].js",
       chunkFileNames: "[name]-[hash].js",
     };
-  } else {
+  } else if (type === "cjs") {
     return {
       sourcemap: true,
+      format: "cjs",
+      name: "app",
+      dir: "public/build/cjs",
+    };
+  } else {
+    return {
+      sourcemap: "inline",
       format: "iife",
       name: "app",
       dir: "public/build/iife",
@@ -96,7 +103,8 @@ if (!bundle) {
 }
 
 export default {
-  input: "src/main.js",
+  input: ["src/data/translations.js", "src/main.js"],
+  // input: "src/main.js",
   output: buildType,
   plugins: [
     svelte(svelteConfig),
@@ -170,5 +178,6 @@ export default {
   ],
   watch: {
     clearScreen: false,
+    chokidar: false,
   },
 };
