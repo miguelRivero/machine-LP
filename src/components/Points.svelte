@@ -30,6 +30,7 @@
     padding: 1.875rem 1.25rem;
     background-color: white;
   }
+
   h3 {
     color: #000000;
     font-family: NespressoLucas !important;
@@ -39,10 +40,12 @@
     line-height: 2.5rem;
   }
 
-  ul {
+  .subscriptionPoints__list {
     list-style: none;
+    margin-top: 2rem;
   }
-  @include mq("tablet") {
+
+  @include mq("tablet-l") {
     .subscriptionPoints {
       padding-top: 4rem;
       padding-bottom: 3.75rem;
@@ -50,15 +53,16 @@
     h3 {
       margin-bottom: 3.25rem;
     }
-    ul {
+    .subscriptionPoints__list {
       display: flex;
+      padding: 0;
     }
   }
 </style>
 
 <section id="points" class="subscriptionPoints">
   <h3>HOW DOES IT WORK?</h3>
-  <ul class="restrict">
+  <ul class="restrict subscriptionPoints__list">
     {#each copyTexts as copy}
       <IconListItem title={copy.title} text={copy.text} icon={copy.icon} />
     {/each}

@@ -2,6 +2,7 @@ import { derived, writable } from "svelte/store";
 
 export const market = writable("");
 export const lang = writable("");
+export const currencySymbol = writable("");
 export const viewportWidth = writable(0);
 export const cartHasSKU = writable(0);
 export const desktopView = derived(viewportWidth, ($viewportWidth) => {

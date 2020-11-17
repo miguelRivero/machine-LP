@@ -53,15 +53,41 @@
     font-weight: 300;
     font-size: 1.125rem;
   }
+
   @include mq("tablet") {
     li {
+      display: inline-block;
+      width: 50%;
+      text-align: center;
+      padding: 0 1rem;
+      &:before {
+        position: relative;
+      }
+      p {
+        text-align: center;
+      }
+      &:last-child {
+        margin-top: 0.75rem;
+      }
+    }
+  }
+
+  @include mq("tablet-l") {
+    li {
+      // padding-left: 2rem;
+      // padding-right: 0;
       text-align: left;
-      padding-left: 2rem;
+      p {
+        text-align: left;
+      }
       &:before {
         position: relative;
       }
       &:first-child {
         padding-left: 0;
+      }
+      &:last-child {
+        padding-right: 0;
       }
     }
 

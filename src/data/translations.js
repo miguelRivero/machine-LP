@@ -8,7 +8,11 @@ window.SubscriptionMachineLP = {
         en: `Might be your perfect match`,
       },
       slides: {
-        month: { en: `/ month` },
+        month: {
+          en: function (e) {
+            return "".concat(e, "/month");
+          },
+        },
         rrp: { en: `RRP` },
         delivery: { en: `Free delivery` },
         periodic: { en: `months minimum term` },

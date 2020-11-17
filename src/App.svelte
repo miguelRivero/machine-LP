@@ -12,10 +12,17 @@
     getSubscriptionData,
     getLang,
     getMarket,
+    getPriceFormatted,
     visibleEl,
     watchCart,
   } from "./utils.js";
-  import { market, lang, viewportWidth, cartHasSKU } from "./store.js";
+  import {
+    market,
+    lang,
+    viewportWidth,
+    cartHasSKU,
+    currencySymbol,
+  } from "./store.js";
   import throttle from "just-throttle";
 
   //AMD SPLIT MODE
@@ -79,6 +86,11 @@
       });
     }
     return itemsList;
+  }
+
+  async function setCurrencySymbol() {
+    const symbol = await getPriceFormatted(1);
+    return symbol.charAt(0);
   }
 
   const getHeaderHeight = (el) => {
@@ -160,6 +172,7 @@
     // Setting store variables
     market.set(getMarket());
     lang.set(getLang());
+    currencySymbol.set(await setCurrencySymbol());
     viewportWidth.set(window.outerWidth);
 
     product = await getProduct(sku);
