@@ -2,21 +2,28 @@
   import { onMount, onDestroy, tick } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { sineInOut } from "svelte/easing";
-  import { desktopView, imagesGitStorage } from "../store.js";
+  import { market, lang, desktopView, imagesGitStorage } from "../store.js";
   import Button from "./Button.svelte";
+
   const unsubscribeDesktop = desktopView.subscribe(
     (value) => (desktop = value)
   );
 
   let heroElement,
+    _market,
+    _language,
     desktop,
+    slidesCopy,
     visible = false;
+  const unsubscribeMarket = market.subscribe((value) => (_market = value));
+  const unsubscribeLang = lang.subscribe((value) => (_language = value));
 
   onMount(async () => {
     await tick();
     visible = true;
+    slidesCopy = window.SubscriptionMachineLP[_market]["hero"];
   });
-  onDestroy(unsubscribeDesktop);
+  onDestroy(unsubscribeDesktop, unsubscribeMarket, unsubscribeLang);
 
   // import { createEventDispatcher } from "svelte";
 
@@ -160,7 +167,7 @@
       alt="Subscription by Nespresso" />
 
     <h2 class="subscriptionHero__slogan subscriptionHero__slogan--m">
-      Never run out of coffee
+      {slidesCopy['heading'][_language]}
     </h2>
     <div class="subscriptionHero__content">
       <img
@@ -172,31 +179,25 @@
         <h2
           in:fade={{ delay: 800, duration: 300, easing: sineInOut }}
           class="subscriptionHero__slogan subscriptionHero__slogan--d">
-          Never run out of coffee
+          {slidesCopy['heading'][_language]}
         </h2>
 
         <ul class="subscriptionHero__points">
-          <li in:fade={{ delay: 1000, duration: 300, easing: sineInOut }}>
-            Your machine for
-            <strong>$1</strong>
-          </li>
-          <li in:fade={{ delay: 1300, duration: 300, easing: sineInOut }}>
-            <strong>Monthly credit</strong>
-            to spend on all coffees and accesories
-          </li>
-          <li in:fade={{ delay: 1600, duration: 300, easing: sineInOut }}>
-            <strong>Unlimited</strong>
-            free deliveries
-          </li>
+          {#each slidesCopy['list'] as item, i}
+            <li
+              in:fade={{ delay: 1000 + 300 * i, duration: 300, easing: sineInOut }}>
+              {@html item[_language]}
+            </li>
+          {/each}
         </ul>
 
         <div
           in:fade={{ delay: 1800, duration: 1000, easing: sineInOut }}
           id="Hero__AddToBagButton">
           <Button
-            text="SEE ALL MACHINES"
+            text={slidesCopy['cta'][_language]}
             hiddenText=""
-            link="/uk/en/order/machines/original"
+            link={slidesCopy['ctaLink'][_language]}
             iconPlus={false}
             iconBasket={false} />
           <!-- on:buttonClick={clickHandler} -->

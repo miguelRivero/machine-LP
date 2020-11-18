@@ -62,7 +62,7 @@
         <Button
           text={slidesCopy['cta'][_language]}
           hiddenText=""
-          link="/uk/en/order/machines/original"
+          link={slidesCopy['ctaLink'][_language]}
           iconPlus={false}
           iconBasket={false} />
       </div>

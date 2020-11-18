@@ -50,9 +50,10 @@
 
   //$: scrollY = 0;
   //$: scrollDir = scrollDirection(scrollY);
-  (async () => {
-    console.log(await machineSubscriptionData);
-  })();
+
+  // (async () => {
+  //   console.log(await machineSubscriptionData);
+  // })();
 
   async function getProduct(sku) {
     let item;
