@@ -1,25 +1,24 @@
 <script>
+  import { onMount, onDestroy, tick } from "svelte";
   import IconListItem from "./IconListItem.svelte";
+  import { market, lang } from "../store.js";
 
-  let copyTexts = [
-    {
-      title: "BUY YOUR MACHINE FOR 1&#163;",
-      text:
-        "Select your preferred machine, add it to your cart with a Subscription plan and checkout.",
-      icon: "machine",
-    },
-    {
-      title: "GET CREDITS EACH MONTH",
-      text:
-        "Once you receive your machine, the monthly plan starts and credits are added to Your Account.",
-      icon: "myaccount",
-    },
-    {
-      title: "SHOP COFFEE & ACCESSORIES",
-      text: "Your credit can be spent on the full range of Nespresso products.",
-      icon: "cups",
-    },
-  ];
+  let _market,
+    _language,
+    slidesCopy,
+    visible = false;
+  const unsubscribeMarket = market.subscribe((value) => (_market = value));
+  const unsubscribeLang = lang.subscribe((value) => (_language = value));
+
+  onMount(async () => {
+    await tick();
+    console.log(_market);
+    slidesCopy = window.SubscriptionMachineLP[_market]["points"];
+    console.log(slidesCopy);
+    visible = true;
+  });
+
+  onDestroy(unsubscribeMarket, unsubscribeLang);
 </script>
 
 <style type="text/scss">
@@ -60,11 +59,13 @@
   }
 </style>
 
-<section id="points" class="subscriptionPoints">
-  <h3>HOW DOES IT WORK?</h3>
-  <ul class="restrict subscriptionPoints__list">
-    {#each copyTexts as copy}
-      <IconListItem title={copy.title} text={copy.text} icon={copy.icon} />
-    {/each}
-  </ul>
-</section>
+{#if visible}
+  <section id="points" class="subscriptionPoints">
+    <h3>{slidesCopy['heading'][_language]}</h3>
+    <ul class="restrict subscriptionPoints__list">
+      {#each slidesCopy['list'][_language] as copy}
+        <IconListItem title={copy.title} text={copy.text} icon={copy.icon} />
+      {/each}
+    </ul>
+  </section>
+{/if}
