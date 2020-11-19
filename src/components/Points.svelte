@@ -12,9 +12,7 @@
 
   onMount(async () => {
     await tick();
-    console.log(_market);
     slidesCopy = window.SubscriptionMachineLP[_market]["points"];
-    console.log(slidesCopy);
     visible = true;
   });
 

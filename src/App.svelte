@@ -94,19 +94,19 @@
     return symbol.charAt(0);
   }
 
-  const getHeaderHeight = (el) => {
-    let header_h = el.getBoundingClientRect().height,
-      banner = false, //document.querySelector("#topDelBan"),
-      off;
-    if (banner) {
-      let y = banner.getBoundingClientRect().y;
-      let h = banner.getBoundingClientRect().height;
-      off = y >= 0 ? y + h : header_h;
-    } else {
-      off = header_h;
-    }
-    return off;
-  };
+  // const getHeaderHeight = (el) => {
+  //   let header_h = el.getBoundingClientRect().height,
+  //     banner = false, //document.querySelector("#topDelBan"),
+  //     off;
+  //   if (banner) {
+  //     let y = banner.getBoundingClientRect().y;
+  //     let h = banner.getBoundingClientRect().height;
+  //     off = y >= 0 ? y + h : header_h;
+  //   } else {
+  //     off = header_h;
+  //   }
+  //   return off;
+  // };
 
   // const scrollHandler = (e) => {
   //   //Check if scroll is up or down

@@ -66,9 +66,9 @@
       p {
         text-align: center;
       }
-      // &:last-child {
-      //   margin-top: 0.75rem;
-      // }
+      &:last-child {
+        margin-top: 0.75rem;
+      }
     }
   }
 
@@ -88,6 +88,7 @@
       }
       &:last-child {
         padding-right: 0;
+        margin-top: 0;
       }
     }
 
