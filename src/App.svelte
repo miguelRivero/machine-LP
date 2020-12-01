@@ -3,8 +3,9 @@
   import Hero from "./components/Hero.svelte";
   import Points from "./components/Points.svelte";
   import Faq from "./components/Faq.svelte";
-  import SubscriptionBox from "./components/SubscriptionBox.svelte";
-  import CoffeeExpertise from "./components/CoffeeExpertise.svelte";
+  import OfferMultiple from "./components/OfferMultiple.svelte";
+  // import Offer from "./components/Offer.svelte";
+  import StickyButton from "./components/StickyButton.svelte";
   import {
     fetchCart,
     getProductData,
@@ -24,6 +25,12 @@
   } from "./store.js";
   import throttle from "just-throttle";
 
+  //AMD SPLIT MODE
+  // async function loadFaq() {
+  //   return (await import("./components/Faq.svelte")).default;
+  // }
+  //let FaqComponent = loadFaq();
+
   const sku = "BNE800BSSUK";
   const machines = ["BNE800BSSUK", "GCB2-GB-WH-NE1", "A3NKGCB2-GB-BK"];
 
@@ -40,6 +47,13 @@
     product,
     lastY = 0,
     sliderVersion = true;
+
+  //$: scrollY = 0;
+  //$: scrollDir = scrollDirection(scrollY);
+
+  // (async () => {
+  //   console.log(await machineSubscriptionData);
+  // })();
 
   async function getProduct(sku) {
     let item;
@@ -80,9 +94,71 @@
     return symbol.charAt(0);
   }
 
+  // const getHeaderHeight = (el) => {
+  //   let header_h = el.getBoundingClientRect().height,
+  //     banner = false, //document.querySelector("#topDelBan"),
+  //     off;
+  //   if (banner) {
+  //     let y = banner.getBoundingClientRect().y;
+  //     let h = banner.getBoundingClientRect().height;
+  //     off = y >= 0 ? y + h : header_h;
+  //   } else {
+  //     off = header_h;
+  //   }
+  //   return off;
+  // };
+
+  // const scrollHandler = (e) => {
+  //   //Check if scroll is up or down
+  //   updateStickyVisibility();
+  // };
+
+  // const updateStickyVisibility = () => {
+  //   let _header = headerTopEl ? headerTopEl : mainHeader;
+  //   //Check the offset for the sticky position
+  //   if (desktopView) {
+  //     //Desktop sticky behaviour
+  //     //Check if HeaderNavigationBar is visible in viewport
+  //     headerTopOffset =
+  //       getHeaderHeight(headerTopEl) + headerTopEl.getBoundingClientRect().top;
+  //     let headerHidden = visibleEl(
+  //       headerNavigationEl,
+  //       headerTopOffset - headerNavigationElHeight
+  //     );
+  //     stickyHidden = scrollY === 0 ? true : headerHidden;
+  //   } else {
+  //     headerTopOffset = getHeaderHeight(_header);
+  //     stickyHidden = visibleEl(s_btn, headerTopOffset);
+  //     updateMainHeaderVisibility();
+  //   }
+  // };
+
+  // const scrollDirection = (y) => {
+  //   const dy = lastY - y;
+  //   lastY = y;
+  //   if (dy < 0) {
+  //     return "down";
+  //   } else {
+  //     return "up";
+  //   }
+  // };
+
+  // const updateMainHeaderVisibility = (dir) => {
+  //   if (stickyHidden) {
+  //     mainHeader.classList.remove("hid");
+  //   } else {
+  //     if (scrollDir === "down") {
+  //       mainHeader.classList.add("hid");
+  //     } else {
+  //       mainHeader.classList.remove("hid");
+  //     }
+  //   }
+  // };
+
   const handleResize = (e) => {
     viewportWidth.update((existing) => window.outerWidth);
     desktopView = window.outerWidth > 767;
+    //updateStickyVisibility();
   };
 
   onMount(async () => {
@@ -126,7 +202,6 @@
 <style type="text/scss">
   @import "./scss/fonts";
   @import "./scss/mixins";
-  @import "./scss/variables";
 
   main {
     text-align: center;
@@ -159,6 +234,21 @@
   :global(#top.hid .Header__top-wrapper.loaded) {
     transform: translateY(-55px);
   }
+
+  // #stickyButton {
+  //   position: fixed;
+  //   top: 0;
+  //   width: 100%;
+  //   z-index: 99;
+  //   transition: transform 0.25s ease-out 0.25s;
+  //   &.hid {
+  //     transform: translateY(-70px) !important;
+  //   }
+  //   &.visibletop {
+  //     //     transition: transform 0.15s ease-out;
+  //     transform: translateY(0px) !important;
+  //   }
+  // }
 
   @include mq("tablet-small") {
     main {
@@ -205,7 +295,13 @@
 <main bind:this={main}>
   <Hero />
   <Points />
-  <SubscriptionBox />
-  <CoffeeExpertise />
+  {#if sliderVersion}
+    {#await machineSubscriptionData then value}
+      <OfferMultiple data={value} />
+    {/await}
+  {/if}
+  <!-- {#await FaqComponent then value}
+    <svelte:component this={value} />
+  {/await} -->
   <Faq />
 </main>

@@ -25,31 +25,31 @@
   }
   .machine {
     &:before {
-      content: url("#{$imagesGitStorage}icons/machine_icon.svg");
+      content: url("#{$imagesGitStorage}/icons/machine_icon.svg");
     }
   }
   .myaccount {
     &:before {
-      content: url("#{$imagesGitStorage}icons/myaccount_icon.svg");
+      content: url("#{$imagesGitStorage}/icons/myaccount_icon.svg");
     }
   }
   .cups {
     &:before {
-      content: url("#{$imagesGitStorage}icons/cups_icon.svg");
+      content: url("#{$imagesGitStorage}/icons/cups_icon.svg");
     }
   }
   .subscriptionHero__pointTitle {
     padding-top: 0.75rem;
     p {
       color: #8d1f3c;
-      font-family: $nespressoFont;
+      font-family: NespressoLucas !important;
       font-weight: 700;
       font-size: 1rem;
     }
   }
   .subscriptionHero__pointText p {
     color: #000000;
-    font-family: $nespressoFont;
+    font-family: NespressoLucas !important;
     font-weight: 300;
     font-size: 1.125rem;
   }

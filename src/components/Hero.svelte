@@ -56,8 +56,8 @@
       bottom: 0;
       right: 0;
       z-index: -1;
-      background-image: url(#{$assetsUrl}hero-bg_S.jpg);
-      background-color: #09220c;
+      background-image: url(#{$assetsUrl}backgrounds/earth_L.jpg);
+      background-color: #851d34;
       background-size: cover;
       opacity: 0;
       transition: opacity 1s;
@@ -73,7 +73,7 @@
   }
   .subscriptionHero__slogan {
     color: white;
-    font-family: $nespressoFont;
+    font-family: NespressoLucas !important;
     font-weight: 300;
     font-weight: normal;
     font-size: 1.125rem;
@@ -97,7 +97,7 @@
     display: table;
     list-style: none;
     text-align: left;
-    font-family: $nespressoFont;
+    font-family: NespressoLucas !important;
     font-weight: 300;
     font-size: 1.125rem;
     font-weight: normal;

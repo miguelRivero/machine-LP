@@ -2,7 +2,6 @@
   import { onMount, onDestroy, tick } from "svelte";
   import IconListItem from "./IconListItem.svelte";
   import { market, lang } from "../store.js";
-  import SectionTitle from "./SectionTitle.svelte";
 
   let _market,
     _language,
@@ -29,6 +28,15 @@
     background-color: white;
   }
 
+  h3 {
+    color: #000000;
+    font-family: NespressoLucas !important;
+    font-weight: 300;
+    font-size: 1.875rem;
+    letter-spacing: 0.375rem;
+    line-height: 2.5rem;
+  }
+
   .subscriptionPoints__list {
     list-style: none;
     margin-top: 2rem;
@@ -39,7 +47,7 @@
       padding-top: 4rem;
       padding-bottom: 3.75rem;
     }
-    .section__title {
+    h3 {
       margin-bottom: 3.25rem;
     }
     .subscriptionPoints__list {
@@ -51,7 +59,7 @@
 
 {#if visible}
   <section id="points" class="subscriptionPoints">
-    <SectionTitle text={slidesCopy['heading'][_language]} />
+    <h3>{slidesCopy['heading'][_language]}</h3>
     <ul class="restrict subscriptionPoints__list">
       {#each slidesCopy['list'][_language] as copy}
         <IconListItem title={copy.title} text={copy.text} icon={copy.icon} />
