@@ -2,7 +2,6 @@
   import Splide from "@splidejs/splide";
   import { onMount } from "svelte";
   export let slides;
-
   let gliderEl;
 
   onMount(() => {
