@@ -1,7 +1,7 @@
 <script>
   import Handorgel from "handorgel";
   import { onMount, onDestroy, tick } from "svelte";
-  import { imagesGitStorage } from "../store.js";
+  import { imagesStorage } from "../store.js";
   import { market, lang } from "../store.js";
 
   let hand_accordion,
@@ -13,7 +13,7 @@
   const unsubscribeMarket = market.subscribe((value) => (_market = value));
   const unsubscribeLang = lang.subscribe((value) => (_language = value));
 
-  const top_image = `${imagesGitStorage}machine_faq.png`;
+  const top_image = `${imagesStorage}machine_faq.png`;
 
   onMount(async () => {
     await tick();
@@ -173,7 +173,7 @@
 <section id="faq" data-label="FAQ" class="subscriptionFaq">
   <div
     class="subscriptionFaq__bg"
-    style="background-image: url({imagesGitStorage}bg_faq.jpg);" />
+    style="background-image: url({imagesStorage}bg_faq.jpg);" />
 
   <div class="subscriptionFaq__container">
     <img

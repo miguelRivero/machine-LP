@@ -25,17 +25,17 @@
   }
   .machine {
     &:before {
-      content: url("#{$imagesGitStorage}/icons/machine_icon.svg");
+      content: url("#{$imagesStorage}/icons/machine_icon.svg");
     }
   }
   .myaccount {
     &:before {
-      content: url("#{$imagesGitStorage}/icons/myaccount_icon.svg");
+      content: url("#{$imagesStorage}/icons/myaccount_icon.svg");
     }
   }
   .cups {
     &:before {
-      content: url("#{$imagesGitStorage}/icons/cups_icon.svg");
+      content: url("#{$imagesStorage}/icons/cups_icon.svg");
     }
   }
   .subscriptionHero__pointTitle {

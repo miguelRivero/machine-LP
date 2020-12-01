@@ -2,7 +2,7 @@
   import { onMount, onDestroy, tick } from "svelte";
   import { fade, fly } from "svelte/transition";
   import { sineInOut } from "svelte/easing";
-  import { market, lang, desktopView, imagesGitStorage } from "../store.js";
+  import { market, lang, desktopView, imagesStorage } from "../store.js";
   import Button from "./Button.svelte";
 
   const unsubscribeDesktop = desktopView.subscribe(
@@ -163,7 +163,7 @@
       in:fade={{ delay: 500, duration: 500, easing: sineInOut }}
       class="subscriptionHero__logo"
       aria-hidden="true"
-      src="{imagesGitStorage}/logo_subscription.svg"
+      src="{imagesStorage}/logo_subscription.svg"
       alt="Subscription by Nespresso" />
 
     <h2 class="subscriptionHero__slogan subscriptionHero__slogan--m">
@@ -173,7 +173,7 @@
       <img
         in:fly={{ delay: 800, x: desktop ? -100 : 0, duration: 1500, easing: sineInOut }}
         class="subscriptionHero__machine"
-        src="{imagesGitStorage}/machine.png"
+        src="{imagesStorage}/machine.png"
         alt="Coffee Machine Set" />
       <div class="subscriptionHero__offer">
         <h2

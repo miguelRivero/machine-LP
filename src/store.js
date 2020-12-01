@@ -8,5 +8,5 @@ export const cartHasSKU = writable(0);
 export const desktopView = derived(viewportWidth, ($viewportWidth) => {
   return $viewportWidth > 767;
 });
-export let imagesGitStorage =
+export let imagesStorage =
   "https://raw.githubusercontent.com/miguelRivero/machine-plp/master/public/images/";
