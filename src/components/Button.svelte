@@ -46,7 +46,7 @@
   .AddToBagButtonLarge__label {
     width: 100%;
     text-align: center;
-    font-family: NespressoLucas !important;
+    font-family: $nespressoFont;
     font-weight: 700;
     @include truncate(unset);
   }

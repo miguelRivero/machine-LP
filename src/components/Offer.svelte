@@ -44,7 +44,7 @@
   .perfectMatch__title {
     margin: 0;
     color: black;
-    font-family: NespressoLucas !important;
+    font-family: $nespressoFont;
     font-weight: 300;
     font-size: 1.875rem;
     font-weight: 300;
@@ -61,7 +61,7 @@
   }
   .perfectMatch__name {
     color: #000000;
-    font-family: NespressoLucas !important;
+    font-family: $nespressoFont;
     font-weight: 700;
     font-size: 1.125rem;
     letter-spacing: 3px;
@@ -73,7 +73,7 @@
   }
   .perfectMatch__description {
     color: #000000;
-    font-family: NespressoLucas !important;
+    font-family: $nespressoFont;
     font-weight: 300;
     font-size: 0.875rem;
     letter-spacing: 1px;
@@ -89,14 +89,14 @@
   }
   .perfectMatch__price {
     color: #000000;
-    font-family: NespressoLucas !important;
+    font-family: $nespressoFont;
     font-weight: 300;
     font-size: 1rem;
     letter-spacing: 1px;
     line-height: 1.5rem;
     span {
       color: $greenColor;
-      font-family: NespressoLucas !important;
+      font-family: $nespressoFont;
       font-weight: 700;
       font-size: 18px;
       letter-spacing: 3px;
@@ -113,7 +113,7 @@
     margin-top: 0.75rem;
     a {
       color: $brownColor;
-      font-family: NespressoLucas !important;
+      font-family: $nespressoFont;
       font-weight: 700;
       font-size: 1.125rem;
       letter-spacing: 1px;
@@ -122,7 +122,7 @@
   }
   .perfectMatch__price__original {
     color: #666666;
-    font-family: NespressoLucas !important;
+    font-family: $nespressoFont;
     font-weight: 300;
     font-size: 0.875rem;
     letter-spacing: 1px;

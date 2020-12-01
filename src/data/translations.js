@@ -5,17 +5,17 @@ window.SubscriptionMachineLP = {
   uk: {
     hero: {
       heading: {
-        en: `Never run out of coffee`,
+        en: `A monthly credit to purchase Nespresso coffee`,
       },
       list: [
-        { en: `Your machine for <strong>$1</strong>` },
+        { en: `<strong>10% more credit for free</strong> each month` },
         {
-          en: `<strong>Monthly credit</strong> credit to spend on all coffees and accesories`,
+          en: `<strong>Flexible.</strong> You can cancel your Coffee Subscription anytime.`,
         },
-        { en: `<strong>Unlimited</strong> free deliveries` },
+        { en: `<strong>Unlimited free deliveries</strong> on coffee orders.` },
       ],
-      cta: { en: `SEE ALL MACHINES` },
-      ctaLink: { en: `/uk/en/order/machines/original` },
+      cta: { en: `DISCOVER ALL COFFEE PLANS` },
+      ctaLink: { en: `/uk/en/order/capsules/` },
     },
     points: {
       heading: {
@@ -24,44 +24,73 @@ window.SubscriptionMachineLP = {
       list: {
         en: [
           {
-            title: "BUY YOUR MACHINE FOR 1&#163;",
+            title: "Select your coffee plan",
             text:
-              "Select your preferred machine, add it to your cart with a Subscription plan and checkout.",
+              "Select the monthly plan tailored to your coffee consumption and click subscribe.",
             icon: "machine",
           },
           {
-            title: "GET CREDITS EACH MONTH",
+            title: "Checkout",
             text:
-              "Once you receive your machine, the monthly plan starts and credits are added to Your Account.",
+              "Head to the Checkout where you’ll pay your first monthly payment and you’ll be set up on a regular monthly payment plan.",
             icon: "myaccount",
           },
           {
-            title: "SHOP COFFEE & ACCESSORIES",
+            title: "WAIT FOR ITS ACTIVATION",
             text:
-              "Your credit can be spent on the full range of Nespresso products.",
+              "Your credit will be activated and ready to spend in xx hours, we will e-mail you to let you know when this is active.",
+            icon: "cups",
+          },
+          {
+            title: "SHOP Coffee and more",
+            text:
+              "Each month, your payment turns into Nespresso credit increased by 10% which you can use to purchase coffee, accessories, food bites or even a new machine.",
             icon: "cups",
           },
         ],
       },
     },
-    slider: {
+    subscriptionBox: {
       heading: {
-        en: `Might be your perfect match`,
+        en: `Received a subscription box?`,
       },
-      slides: {
-        month: {
-          en: function (e) {
-            return "".concat(e, "/month");
-          },
-        },
-        rrp: { en: `RRP` },
-        delivery: { en: `Free delivery` },
-        periodic: { en: `months minimum term` },
-        cta: { en: `More Details` },
+      body: {
+        en: `Have you received a Coffee Subscription box as part of our promotion?`,
       },
-      cta: { en: `SEE ALL MACHINES` },
-      ctaLink: { en: `/uk/en/order/machines/original` },
+      cta: {
+        en: `Activate your box now`,
+      },
+      url: `#`,
     },
+    coffeeExpertise: {
+      heading: {
+        en: `treat yourself with high quality coffee`,
+      },
+      body: {
+        en: `A wide range selection of coffees to treat yourself with different savors every day but not only.`,
+      },
+      list: {
+        en: [
+          {
+            question: `How we make coffee`,
+            answer: `Have you received a Coffee Subscription box as part of our promotion?`,
+          },
+          {
+            question: `Responsable sourcing`,
+            answer: `Have you received a Coffee Subscription box as part of our promotion?`,
+          },
+          {
+            question: `our commitments`,
+            answer: `Have you received a Coffee Subscription box as part of our promotion?`,
+          },
+        ],
+      },
+      cta: {
+        en: `More about our coffee expertise`,
+      },
+      url: `#`,
+    },
+
     faq: {
       heading: {
         en: `STILL HAVE QUESTIONS?`,
@@ -71,50 +100,47 @@ window.SubscriptionMachineLP = {
           {
             question: "What&#39s the catch?",
             answer:
-              "There is no catch! You pay £1 upfront for the machine and you sign up for a 24 month commitment with a monthly fee. The monthly fee becomes <strong class='v_brand' term='nespresso'>Nespresso</strong> credit, which is yours to spend on any <strong class='v_brand' term='nespresso'>Nespresso</strong> product you want. For your own coffee experience, day after day.",
+              "There isn’t one! The amount of your monthly subscription will vary depending on the plan you select. And if you decide it’s not for you then you can end your subscription at any time, with no questions and no cancellation fee.",
           },
           {
-            question:
-              "What&#39s the <strong class='v_brand' term='nespresso'>Nespresso</strong> credit? How is it applied?",
+            question: "Is it just for new customers?",
             answer:
-              "When you sign up for your Subscription, you also become a <strong class='v_brand' term='nespresso'>Nespresso</strong> member (if you are not one already!). Your credit is applied every month, upon the payment of your monthly fee, directly into your account. Whether you want to spend it every month, or prefer to save up to order more later, the choice is yours. You can check your <strong class='v_brand' term='nespresso'>Nespresso</strong> credit balance at any time by logging in online, calling <strong class='v_brand' term='nespresso'>Nespresso</strong> on 0800 442 442 (Freephone) or visiting your nearest <strong class='v_brand' term='nespresso'>Nespresso</strong> Boutique.",
+              "No, whether you’re new to <strong>Nespresso</strong> or an established coffee lover looking to explore further, you can enjoy all the benefits of Coffee Subscription by <strong>Nespresso</strong>.",
           },
           {
-            question:
-              "What if you don&#39t use your <strong class='v_brand' term='nespresso'>Nespresso</strong> credit?",
+            question: "How does Coffee Subscription by Nespresso work?",
             answer:
-              "When or how you decide to use your credit is up to you. If you don&#39t use it entirely, the credit will accrue on your account every month, and can be spent on any <strong class='v_brand' term='nespresso'>Nespresso</strong> products. Your credit will expire 2 years after the end of your Subscription term, so be sure to use it regularly.",
+              "Each month you’ll receive a fixed amount of <strong>Nespresso</strong> credit that you can use to purchase coffee, accessories and food bites, or even machines, via <strong>Nespresso</strong>.com, by phone, or in our <strong>Nespresso</strong> Boutiques. The amount of <strong>Nespresso</strong> Credit you receive is equal to your monthly payment, plus an additional 10% credit as a thank you for being a subscriber.",
           },
           {
-            question: "What if you change your mind?",
+            question: "What is Nespresso credit?",
             answer:
-              "Should you decide that <strong class='v_brand' term='nespresso'>Nespresso</strong> subscription is not for you anymore, you can cancel it at any time by calling us on 0800 442 442. If you cancel your subscription within the first 14 days and return the machine, there is no charge. If you cancel after this, and within the 24 month minimum term, the relevant termination fee for your chosen plan will be charged. If you choose to cancel after the initial 24 month term, there is no charge to do so, and you can keep your <strong class='v_brand' term='nespresso'>Nespresso</strong> machine.",
+              "Your <strong>Nespresso</strong> credit is added directly to your account for you to use whenever you want. So whether you want to treat yourself straightaway or save up for a bigger item in the future, the choice is yours. You can check your <strong>Nespresso</strong> credit balance at any time by logging on online, calling us on freephone 0800 442 442 or visiting your nearest <strong>Nespresso</strong> Boutique.",
           },
           {
-            question: "Who qualifies for this offer?",
+            question: "When do I pay for my plan?",
             answer:
-              "Whether you are new to <strong class='v_brand' term='nespresso'>Nespresso</strong> or a long-time <strong class='v_brand' term='nespresso'>Nespresso</strong> coffee lover, you can sign up to  <strong class='v_brand' term='nespresso'>Nespresso</strong> subscription.",
+              "The first monthly amount is due at the time you sign up to your Coffee Subscription plan. Subsequent payments will be due every month on the same date of the month as your subscription began. If you need to amend your payment date, or any other details you can contact us on freephone 0800 442 442.",
           },
           {
-            question: "Am I tied into a contract",
+            question: "How is the extra credit applied?",
             answer:
-              "Your plan has a 24 month minimum term. If you cancel before the end of the minimum term, there is an early termination charge. You can view the full Terms and Conditions <a href='/uk/en/legal'>here</a>",
+              "As a unique benefit of subscribing to Coffee Subscription by <strong>Nespresso</strong>, you will receive 10% extra credit per month directly to your account, which can be used at any time. So if your monthly amount is £25 and the extra credit is 10%, you will receive a total of £27.50 credit in your account each month, as long as you pay your monthly fee.",
+          },
+          {
+            question: "What if I don't use my credit?",
+            answer:
+              "We know you’re busy. So any unspent credit is retained on your account for 2 years, ready for you to use whenever you need it.",
+          },
+          {
+            question: "Can I cancel my subscription?",
+            answer:
+              "Yes, your plan lasts as long as you continue to make your monthly payments. If you decide Coffee Subscription by <strong>Nespresso</strong> is not for you then you can terminate it at any time without penalty. Simply contact our Customer Relationship Centre on 0800 442 442 or visit any <strong>Nespresso</strong> Boutique. However, you will not be entitled to a refund for any monthly fees already paid at the date of termination.",
           },
           {
             question: "What happens to my credit if I cancel my subscription?",
             answer:
-              "If you cancel your <strong class='v_brand' term='nespresso'>Nespresso</strong> Subscription, the credit will be available on your account for 2 years. Please check the the Subscription Terms and Conditions for full details.",
-          },
-          {
-            question:
-              "Will I own the machine after signing the Subscription contract?",
-            answer:
-              "Yes, you will own the <strong class='v_brand' term='nespresso'>Nespresso</strong> machine as soon as your order is dispatched. Please refer to your contract, or the Subscription Terms and Conditions for more information.",
-          },
-          {
-            question: "How long will I benefit from free delivery?",
-            answer:
-              "You will benefit from free delivery on all your capsule orders, up to your final Subscription payment. Please note that there will still be a minimum order quantity of 50 capsules, as this is the minimum size of the packages that we use for shipping (to guarantee that the items arrive to you in good condition). If you cancel your Subscription, you will need to order a minimum of 100 capsules to qualify for free delivery.",
+              "When you cancel your plan, your credit will remain on your account for you to use whenever you like. Your credit will remain valid for 2 years.",
           },
         ],
       },
