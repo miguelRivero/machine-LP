@@ -9,4 +9,4 @@ export const desktopView = derived(viewportWidth, ($viewportWidth) => {
   return $viewportWidth > 767;
 });
 export let imagesGitStorage =
-  "https://raw.githubusercontent.com/miguelRivero/machine-plp/master/public/images/";
+  "/shared_res/agility/subscriptionMachineJourney/landingPage/img/";
